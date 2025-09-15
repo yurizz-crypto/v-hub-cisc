@@ -1,0 +1,38 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+.env
+
+# Django
+db.sqlite3
+*.sqlite3
+
+# Virtual environments
+venv/
+env/
+
+# Static and media files
+/staticfiles/
+/media/
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+.history/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Backup and swap files
+*.bak
+*.swp
+
+# Frontend build artifacts (if any)
+frontend/node_modules/
+frontend/dist/

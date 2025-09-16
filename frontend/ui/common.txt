@@ -1,0 +1,5 @@
+venv\Lib\site-packages\qt6_applications\Qt\bin\rcc.exe -g python org_main.qrc -o resources_rc.py
+
+from . import resources_rc
+
+pyuic6 -x org_main.ui -o org_main_ui.py

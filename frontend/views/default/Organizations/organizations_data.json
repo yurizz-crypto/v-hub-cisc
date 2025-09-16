@@ -5,6 +5,13 @@
       "name": "Tech Society",
       "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 1.jpg",
       "details": "View Details",
+      "brief": "A society focused on technology innovations and workshops.",
+      "objectives": "To promote tech education and foster innovation among members.",
+      "branches": ["Software Branch", "Hardware Branch"],
+      "events": [
+        {"name": "Tech Workshop 1", "date": "2025-10-05", "description": "Hands-on session on AI basics."},
+        {"name": "Hackathon Prep", "date": "2025-11-10", "description": "Preparation for upcoming hackathon."}
+      ],
       "officers": []
     },
     {
@@ -12,6 +19,13 @@
       "name": "Art Club",
       "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 2.png",
       "details": "View Details",
+      "brief": "Club for artists to collaborate and showcase work.",
+      "objectives": "Encourage creativity and art appreciation.",
+      "branches": ["Painting Branch", "Sculpture Branch"],
+      "events": [
+        {"name": "Art Exhibition", "date": "2025-09-20", "description": "Display of member artworks."},
+        {"name": "Drawing Workshop", "date": "2025-10-15", "description": "Learn advanced drawing techniques."}
+      ],
       "officers": []
     },
     {
@@ -19,6 +33,12 @@
       "name": "Music Group",
       "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 3.png",
       "details": "View Details",
+      "brief": "Group for musicians to perform and practice.",
+      "objectives": "Promote musical talents and organize concerts.",
+      "branches": ["Vocal Branch", "Instrumental Branch"],
+      "events": [
+        {"name": "Concert Night", "date": "2025-12-01", "description": "Live performances by members."}
+      ],
       "officers": []
     },
     {
@@ -26,12 +46,19 @@
       "name": "College of Information Sciences & Computing Student Council (CiSCo)",
       "logo_path": "frontend/assets/organization/sample_orgs/CiSCo Logo.jpg",
       "details": "View Details",
+      "brief": "Student council for computing sciences.",
+      "objectives": "Represent students and organize academic events.",
+      "branches": ["IT Branch", "CS Branch"],
+      "events": [
+        {"name": "Coding Bootcamp", "date": "2025-09-25", "description": "Intensive coding sessions."},
+        {"name": "Tech Talk Series", "date": "2025-10-30", "description": "Guest speakers on tech trends."}
+      ],
       "officers": [
         {
           "name": "Ruben, Stephen Joseph",
           "position": "Vice - Internal Chairperson",
-          "card_image_path": "frontend/assets/organization/sample_officers/Internal.jpg",
-          "photo_path": "frontend/assets/organization/sample_officers/Internal.jpg",
+          "card_image_path": "frontend/assets/organization/sample_officers/Chairperson.jpg",
+          "photo_path": "frontend/assets/organization/sample_officers/Chairperson.jpg",
           "start_date": "07/08/2025"
         },
         {
@@ -62,6 +89,12 @@
       "name": "Literature Circle",
       "logo_path": "frontend/assets/organization/sample_orgs/Sample Org.png",
       "details": "View Details",
+      "brief": "Circle for literature enthusiasts.",
+      "objectives": "Discuss books and writing.",
+      "branches": ["Poetry Branch"],
+      "events": [
+        {"name": "Book Discussion", "date": "2025-11-05", "description": "Group reading and analysis."}
+      ],
       "officers": []
     },
     {
@@ -69,6 +102,12 @@
       "name": "Science Forum",
       "logo_path": "No Photo",
       "details": "More Details",
+      "brief": "Forum for science discussions.",
+      "objectives": "Advance scientific knowledge.",
+      "branches": ["Biology Branch", "Physics Branch"],
+      "events": [
+        {"name": "Science Fair", "date": "2025-12-10", "description": "Showcase experiments."}
+      ],
       "officers": []
     },
     {
@@ -76,6 +115,12 @@
       "name": "Drama Society",
       "logo_path": "No Photo",
       "details": "More Details",
+      "brief": "Society for drama and theater.",
+      "objectives": "Perform plays and improv.",
+      "branches": ["Acting Branch"],
+      "events": [
+        {"name": "Theater Night", "date": "2025-10-20", "description": "Live drama performances."}
+      ],
       "officers": []
     },
     {
@@ -83,6 +128,12 @@
       "name": "Photography Club",
       "logo_path": "No Photo",
       "details": "More Details",
+      "brief": "Club for photographers.",
+      "objectives": "Capture and edit photos.",
+      "branches": ["Digital Branch", "Film Branch"],
+      "events": [
+        {"name": "Photo Walk", "date": "2025-09-30", "description": "Group photography outing."}
+      ],
       "officers": []
     }
   ],
@@ -94,6 +145,12 @@
       "description": "Build and program robots.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Club dedicated to robotics engineering.",
+      "objectives": "Develop robotic skills and compete in events.",
+      "branches": ["Mechanics Branch", "Programming Branch"],
+      "events": [
+        {"name": "Robot Competition", "date": "2025-11-20", "description": "Annual robotics challenge."}
+      ],
       "officers": []
     },
     {
@@ -103,6 +160,12 @@
       "description": "Play and learn chess.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Club for chess players.",
+      "objectives": "Improve strategy and compete.",
+      "branches": ["Beginner Branch", "Advanced Branch"],
+      "events": [
+        {"name": "Chess Tournament", "date": "2025-10-10", "description": "Inter-club chess matches."}
+      ],
       "officers": []
     },
     {
@@ -112,6 +175,12 @@
       "description": "Join debates and competitions.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Team for public speaking and debates.",
+      "objectives": "Hone argumentation skills.",
+      "branches": ["Policy Branch"],
+      "events": [
+        {"name": "Debate Workshop", "date": "2025-09-15", "description": "Training on debate techniques."}
+      ],
       "officers": []
     },
     {
@@ -121,6 +190,12 @@
       "description": "Environmental activities.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Group focused on sustainability.",
+      "objectives": "Promote eco-friendly practices.",
+      "branches": ["Recycling Branch", "Conservation Branch"],
+      "events": [
+        {"name": "Tree Planting", "date": "2025-10-25", "description": "Community tree planting event."}
+      ],
       "officers": []
     },
     {
@@ -130,6 +205,12 @@
       "description": "Learn programming.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Club for coders.",
+      "objectives": "Teach coding languages.",
+      "branches": ["Web Dev Branch", "App Dev Branch"],
+      "events": [
+        {"name": "Code Jam", "date": "2025-11-05", "description": "Coding competition."}
+      ],
       "officers": []
     },
     {
@@ -139,6 +220,12 @@
       "description": "Entrepreneurship events.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Society for business minds.",
+      "objectives": "Foster entrepreneurial spirit.",
+      "branches": ["Marketing Branch"],
+      "events": [
+        {"name": "Startup Pitch", "date": "2025-12-15", "description": "Pitch business ideas."}
+      ],
       "officers": []
     },
     {
@@ -148,6 +235,12 @@
       "description": "Create short films.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Group for filmmakers.",
+      "objectives": "Produce and edit films.",
+      "branches": ["Directing Branch", "Editing Branch"],
+      "events": [
+        {"name": "Film Festival", "date": "2025-10-05", "description": "Screening of short films."}
+      ],
       "officers": []
     },
     {
@@ -157,6 +250,12 @@
       "description": "Math competitions.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Club for math enthusiasts.",
+      "objectives": "Solve complex problems.",
+      "branches": ["Algebra Branch", "Geometry Branch"],
+      "events": [
+        {"name": "Math Olympiad", "date": "2025-11-25", "description": "Math competition prep."}
+      ],
       "officers": []
     }
   ],
@@ -166,6 +265,12 @@
       "name": "Tech Subgroup",
       "logo_path": "No Photo",
       "details": "View Details",
+      "brief": "Subgroup for tech projects.",
+      "objectives": "Develop subgroup-specific goals.",
+      "branches": [],  
+      "events": [
+        {"name": "Subgroup Meeting", "date": "2025-09-10", "description": "Planning session."}
+      ],
       "officers": []
     },
     {
@@ -173,6 +278,12 @@
       "name": "Art Section",
       "logo_path": "No Photo",
       "details": "View Details",
+      "brief": "Section for art activities.",
+      "objectives": "Organize art events.",
+      "branches": [],  
+      "events": [
+        {"name": "Art Session", "date": "2025-10-01", "description": "Creative workshop."}
+      ],
       "officers": []
     }
   ],
@@ -184,6 +295,12 @@
       "description": "Robotics branch.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Section for robotics enthusiasts.",
+      "objectives": "Build robots collaboratively.",
+      "branches": [],  
+      "events": [
+        {"name": "Robotics Demo", "date": "2025-11-01", "description": "Demo of built robots."}
+      ],
       "officers": []
     },
     {
@@ -193,6 +310,12 @@
       "description": "Chess branch.",
       "details": "More Details",
       "apply": "Apply",
+      "brief": "Section for chess strategies.",
+      "objectives": "Train for tournaments.",
+      "branches": [],  
+      "events": [
+        {"name": "Chess Practice", "date": "2025-09-25", "description": "Weekly practice sessions."}
+      ],
       "officers": []
     }
   ]

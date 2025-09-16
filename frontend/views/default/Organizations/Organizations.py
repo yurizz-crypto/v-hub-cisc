@@ -141,11 +141,15 @@ class OfficerCard(QtWidgets.QFrame):
         """)
 
         layout = QtWidgets.QVBoxLayout(self)
-        layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignHCenter)
+        layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
+
+        # Top spacer to center content vertically
+        top_spacer = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        layout.addItem(top_spacer)
 
         image_label = QtWidgets.QLabel()
         image_label.setFixedSize(200, 250)
-        image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignVCenter)
 
         if "card_image_path" in officer_data and officer_data["card_image_path"] != "No Photo":
             pixmap = QPixmap(officer_data["card_image_path"]).scaled(200, 250, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.TransformationMode.SmoothTransformation)
@@ -171,6 +175,10 @@ class OfficerCard(QtWidgets.QFrame):
         layout.addWidget(name_label)
         layout.addWidget(position_label)
         layout.addWidget(btn_details)
+
+        # Bottom spacer to maintain vertical centering
+        bottom_spacer = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        layout.addItem(bottom_spacer)
 
 class OfficerDialog(QtWidgets.QDialog):
     def __init__(self, officer_data, parent=None):
@@ -224,7 +232,56 @@ class OfficerDialog(QtWidgets.QDialog):
         contact_btn.setStyleSheet("background-color: white; border: 1px solid #ccc; border-radius: 5px;")
         main_layout.addWidget(cv_btn)
         main_layout.addWidget(contact_btn)
-        
+
+class EventCard(QtWidgets.QFrame):
+    def __init__(self, event_data, main_window):
+        super().__init__()
+        self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.setMinimumHeight(100)  # Adjusted height to fit the design
+        self.setStyleSheet("""
+            QFrame {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 5px;
+            }
+            QFrame#eventHeader {
+                background-color: #084924;
+                color: #fff;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                padding: 5px;
+            }
+        """)
+
+        # Main layout
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.setSpacing(0)
+
+        # Header section
+        header = QtWidgets.QFrame(self)
+        header.setObjectName("eventHeader")
+        header_layout = QtWidgets.QHBoxLayout(header)
+        header_layout.setContentsMargins(10, 0, 10, 0)
+
+        name_label = QtWidgets.QLabel(event_data.get("name", "Unknown Event"))
+        name_label.setStyleSheet("font-size: 16px; font-weight: bold;")
+        date_label = QtWidgets.QLabel(event_data.get("date", "No Date"))
+        date_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
+
+        header_layout.addWidget(name_label)
+        header_layout.addWidget(date_label)
+        main_layout.addWidget(header)
+
+        # Content section
+        content_label = QtWidgets.QLabel(event_data.get("description", "No Description"))
+        content_label.setStyleSheet("padding: 10px; font-size: 12px;")
+        content_label.setWordWrap(True)
+        content_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(content_label)
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -235,8 +292,30 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.comboBox.currentIndexChanged.connect(self.on_combobox_changed)
 
         self.ui.back_btn.clicked.connect(self.return_to_prev_page)
+        self.setup_scroll_area()
 
         self.load_orgs()
+
+    def setup_scroll_area(self):
+        self.ui.joined_org_scrollable.setStyleSheet("""
+            QScrollArea {
+                background-color: white;
+            }
+        """)
+
+        self.ui.college_org_scrollable.setStyleSheet("""
+            QScrollArea {
+                background-color: white;
+            }
+        """)
+
+        self.ui.officers_scroll_area.setStyleSheet("""
+            QScrollArea {
+                background-color: white;
+            }
+        """)
+
+
 
     def clear_grid(self, grid_layout):
         for i in reversed(range(grid_layout.count())):
@@ -371,22 +450,37 @@ class MainWindow(QtWidgets.QMainWindow):
         dialog = OfficerDialog(officer_data, self)
         dialog.exec()
 
+    def load_events(self, events):
+        while self.ui.verticalLayout_14.count():
+            item = self.ui.verticalLayout_14.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+
+        for event in events:
+            card = EventCard(event, self)
+            self.ui.verticalLayout_14.addWidget(card)
+
+        self.ui.verticalLayout_14.addStretch()
+        self.ui.scroll_area_events.verticalScrollBar().setValue(0)
+
     def show_org_details(self, org_data):
-        self.ui.header_label_2.setText("Organization")
-        self.ui.status_btn.setText("Active")
-        self.ui.org_name.setText(org_data["name"])
-        self.ui.org_type.setText("Organization Type")
-        self.ui.brief_label.setText(org_data.get("description", "No description available"))
-        self.ui.obj_label.setText("Objectives content here")
-        self.ui.obj_label_2.setText(org_data.get("branches", "Branches content here"))
+            self.ui.header_label_2.setText("Organization")
+            self.ui.status_btn.setText("Active")
+            self.ui.org_name.setText(org_data["name"])
+            self.ui.org_type.setText("Organization Type")
+            self.ui.brief_label.setText(org_data.get("brief", "No brief available"))
+            self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
+            branches_text = "\n".join(org_data.get("branches", []))
+            self.ui.obj_label_2.setText(branches_text or "No branches available")
 
-        self.set_circular_logo(self.ui.logo, org_data["logo_path"])
+            self.set_circular_logo(self.ui.logo, org_data["logo_path"])
 
-        self.load_officers(org_data.get("officers", []))
+            self.load_officers(org_data.get("officers", []))
+            self.load_events(org_data.get("events", []))
 
-        self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")
+            self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")
 
-        self.ui.stacked_widget.setCurrentIndex(1)
+            self.ui.stacked_widget.setCurrentIndex(1)
 
     def return_to_prev_page(self):
         self.load_orgs()

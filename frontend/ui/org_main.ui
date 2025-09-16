@@ -530,6 +530,12 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">QFrame {
+	background-color: white;
+	border-radius: 10px;
+};</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -553,7 +559,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>Line {
+                <string notr="true">QFrame {
     background-color: black;
 }</string>
                </property>
@@ -633,7 +639,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>Line {
+                <string notr="true">QFrame {
     background-color: black;
 }</string>
                </property>
@@ -651,6 +657,19 @@
                 <string>OrgType</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
              <item>
               <widget class="QFrame" name="derscription_container">
@@ -692,7 +711,7 @@
                 <item>
                  <widget class="QPushButton" name="branch_btn">
                   <property name="text">
-                   <string>Objectives</string>
+                   <string>Branches</string>
                   </property>
                  </widget>
                 </item>
@@ -705,6 +724,19 @@
                 </item>
                </layout>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -732,6 +764,12 @@
               <width>500</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QFrame {
+	background-color: white;
+	border-radius: 10px;
+};</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -797,7 +835,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>Line {
+                <string notr="true">QFrame {
     background-color: black;
 }</string>
                </property>
@@ -826,7 +864,7 @@
                   <x>0</x>
                   <y>0</y>
                   <width>478</width>
-                  <height>556</height>
+                  <height>582</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -917,13 +955,19 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">QFrame {
+	background-color: white;
+	border-radius: 10px;
+};</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_14">
+            <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_5">
                <property name="leftMargin">
@@ -991,7 +1035,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>Line {
+                <string notr="true">QFrame {
     background-color: black;
 }</string>
                </property>
@@ -1004,21 +1048,22 @@
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_13">
-               <item>
-                <spacer name="spacerItem12">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>578</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
+              <widget class="QScrollArea" name="scroll_area_events">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="events_container_2">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>336</width>
+                  <height>602</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_14"/>
+               </widget>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -1031,16 +1076,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1200</width>
-     <height>26</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

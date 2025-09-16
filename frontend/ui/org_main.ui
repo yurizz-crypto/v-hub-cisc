@@ -41,6 +41,12 @@
     </property>
     <item>
      <widget class="QStackedWidget" name="stacked_widget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -82,7 +88,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="spacerItem">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -111,7 +117,7 @@
             </item>
            </widget>
           </item>
-          <item alignment="Qt::AlignTop">
+          <item>
            <widget class="QFrame" name="frame">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -145,12 +151,21 @@
           </item>
          </layout>
         </item>
-        <item alignment="Qt::AlignTop">
+        <item>
          <widget class="QFrame" name="joined_container">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>200</height>
+            <height>400</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -160,7 +175,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QFrame {
+           <string>QFrame {
     background-color: white;
     border-radius: 15px;
 }</string>
@@ -172,6 +187,9 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetNoConstraint</enum>
+           </property>
            <property name="leftMargin">
             <number>20</number>
            </property>
@@ -214,8 +232,8 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QFrame {
-	background-color: black;
+                <string>QFrame {
+    background-color: black;
 };</string>
                </property>
                <property name="frameShape">
@@ -231,7 +249,7 @@
            <item>
             <widget class="QScrollArea" name="joined_org_scrollable">
              <property name="styleSheet">
-              <string notr="true">QScrollArea {
+              <string>QScrollArea {
     background-color: white;
 }</string>
              </property>
@@ -244,7 +262,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>1118</width>
-                <height>118</height>
+                <height>326</height>
                </rect>
               </property>
               <property name="sizePolicy">
@@ -256,6 +274,9 @@
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
                 <layout class="QGridLayout" name="joined_org_grid">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetMaximumSize</enum>
+                 </property>
                  <property name="horizontalSpacing">
                   <number>20</number>
                  </property>
@@ -272,7 +293,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_1">
+         <spacer name="spacerItem1">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -289,10 +310,16 @@
         </item>
         <item alignment="Qt::AlignTop">
          <widget class="QFrame" name="other_container">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>200</height>
+            <height>500</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -302,7 +329,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QFrame {
+           <string>QFrame {
     background-color: white;
     border-radius: 15px;
 }</string>
@@ -356,8 +383,8 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QFrame {
-	background-color: black;
+                <string>QFrame {
+    background-color: black;
 };</string>
                </property>
                <property name="frameShape">
@@ -373,7 +400,7 @@
            <item>
             <widget class="QScrollArea" name="college_org_scrollable">
              <property name="styleSheet">
-              <string notr="true">QScrollArea {
+              <string>QScrollArea {
     background-color: white;
 }</string>
              </property>
@@ -386,7 +413,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>1118</width>
-                <height>118</height>
+                <height>426</height>
                </rect>
               </property>
               <property name="sizePolicy">
@@ -398,6 +425,9 @@
               <layout class="QVBoxLayout" name="verticalLayout_8">
                <item>
                 <layout class="QGridLayout" name="college_org_grid">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetMaximumSize</enum>
+                 </property>
                  <property name="horizontalSpacing">
                   <number>20</number>
                  </property>
@@ -412,22 +442,6 @@
            </item>
           </layout>
          </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
@@ -469,12 +483,9 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="spacerItem3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -485,7 +496,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="back_btn">
             <property name="text">
              <string/>
             </property>
@@ -504,533 +515,515 @@
          </layout>
         </item>
         <item>
-         <widget class="QWidget" name="main_widget" native="true">
-          <property name="styleSheet">
-           <string notr="true">QFrame {
-	background-color: white;
-	border-radius: 10px;
-}
-;</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <item>
-            <widget class="QFrame" name="org_details_container">
-             <property name="minimumSize">
-              <size>
-               <width>250</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>500</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item alignment="Qt::AlignTop">
-               <widget class="QLabel" name="header">
-                <property name="text">
-                 <string>Organization Details</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="Line" name="line">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>2</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">Line {
-	background-color: black;
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QFrame" name="org_details_container">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item alignment="Qt::AlignTop">
+              <widget class="QLabel" name="header">
+               <property name="text">
+                <string>Organization Details</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignTop">
+              <widget class="QFrame" name="line">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>Line {
+    background-color: black;
 }</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QPushButton" name="status_btn">
-                <property name="text">
-                 <string>Active</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>60</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-               <widget class="QLabel" name="logo">
-                <property name="minimumSize">
-                 <size>
-                  <width>200</width>
-                  <height>200</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Logo</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>60</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="org_name">
-                <property name="text">
-                 <string>OrgName</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="Line" name="line_2">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>2</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">Line {
-	background-color: black;
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::HLine</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignTop">
+              <widget class="QPushButton" name="status_btn">
+               <property name="text">
+                <string>Active</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="spacerItem4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>60</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+              <widget class="QLabel" name="logo">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Logo</string>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="spacerItem5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>60</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="org_name">
+               <property name="text">
+                <string>OrgName</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="line_2">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>Line {
+    background-color: black;
 }</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignHCenter">
-               <widget class="QLabel" name="org_type">
-                <property name="text">
-                 <string>OrgType</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QFrame" name="derscription_container">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_9">
-                 <item>
-                  <widget class="QPushButton" name="brief_btn">
-                   <property name="text">
-                    <string>Brief Overview</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="brief_label">
-                   <property name="text">
-                    <string>BriefContent</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="obj_btn">
-                   <property name="text">
-                    <string>Objectives</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="obj_label">
-                   <property name="text">
-                    <string>ObjectivesContent</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="branch_btn">
-                   <property name="text">
-                    <string>Objectives</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="obj_label_2">
-                   <property name="text">
-                    <string>BranchList</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QFrame" name="officers_frame">
-             <property name="minimumSize">
-              <size>
-               <width>500</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item alignment="Qt::AlignTop">
-               <widget class="QWidget" name="officer_header" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                 <property name="leftMargin">
-                  <number>0</number>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::HLine</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="org_type">
+               <property name="text">
+                <string>OrgType</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="derscription_container">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_9">
+                <item>
+                 <widget class="QPushButton" name="brief_btn">
+                  <property name="text">
+                   <string>Brief Overview</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QLabel" name="brief_label">
+                  <property name="text">
+                   <string>BriefContent</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="obj_btn">
+                  <property name="text">
+                   <string>Objectives</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QLabel" name="obj_label">
+                  <property name="text">
+                   <string>ObjectivesContent</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="branch_btn">
+                  <property name="text">
+                   <string>Objectives</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QLabel" name="obj_label_2">
+                  <property name="text">
+                   <string>BranchList</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerItem6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QFrame" name="officers_frame">
+            <property name="minimumSize">
+             <size>
+              <width>500</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="header_2">
+                 <property name="text">
+                  <string>Organization Officers</string>
                  </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="header_2">
-                   <property name="text">
-                    <string>Organization Officers</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_3">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="view_members_btn">
-                   <property name="font">
-                    <font>
-                     <underline>true</underline>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>View Members</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="Line" name="line_3">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>2</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">Line {
-	background-color: black;
-}</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollArea" name="officers_scroll_area">
-                <property name="styleSheet">
-                 <string notr="true">QScrollArea {
-	background-color: white;
-	border: none;
-};</string>
-                </property>
-                <property name="widgetResizable">
-                 <bool>true</bool>
-                </property>
-                <widget class="QWidget" name="scroll_area_contents">
-                 <property name="geometry">
-                  <rect>
-                   <x>0</x>
-                   <y>0</y>
-                   <width>478</width>
-                   <height>562</height>
-                  </rect>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_11">
-                  <item>
-                   <layout class="QGridLayout" name="officer_cards_grid">
-                    <item row="0" column="1">
-                     <spacer name="verticalSpacer_4">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>20</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
                 </widget>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignBottom">
-               <widget class="QWidget" name="footer_header" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>Semester</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_4">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>273</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="officer_history_dp">
-                   <item>
-                    <property name="text">
-                     <string>Officer History</string>
-                    </property>
-                   </item>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QFrame" name="events_container">
-             <property name="minimumSize">
-              <size>
-               <width>250</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <widget class="QWidget" name="header_container_3" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <property name="leftMargin">
-                  <number>0</number>
+               </item>
+               <item>
+                <spacer name="spacerItem7">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="topMargin">
-                  <number>0</number>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
                  </property>
-                 <property name="rightMargin">
-                  <number>0</number>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="view_members_btn">
+                 <property name="font">
+                  <font>
+                   <underline>true</underline>
+                  </font>
                  </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
+                 <property name="text">
+                  <string>View Members</string>
                  </property>
-                 <item>
-                  <widget class="QLabel" name="header_3">
-                   <property name="text">
-                    <string>Upcoming Events</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_5">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="calendar_btn">
-                   <property name="font">
-                    <font>
-                     <underline>false</underline>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="../assets/org_assets.qrc">
-                     <normaloff>:/icons/organization/icons/calendar.png</normaloff>:/icons/organization/icons/calendar.png</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>30</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="Line" name="line_4">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>2</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">Line {
-	background-color: black;
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item alignment="Qt::AlignTop">
+              <widget class="QFrame" name="line_3">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>Line {
+    background-color: black;
 }</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::HLine</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="officers_scroll_area">
+               <property name="styleSheet">
+                <string>QScrollArea {
+    background-color: white;
+    border: none;
+};</string>
+               </property>
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scroll_area_contents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>478</width>
+                  <height>556</height>
+                 </rect>
                 </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="events_cards" native="true">
-                <layout class="QVBoxLayout" name="verticalLayout_13">
+                <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
-                  <spacer name="verticalSpacer_5">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>578</height>
-                    </size>
-                   </property>
-                  </spacer>
+                  <layout class="QGridLayout" name="officer_cards_grid">
+                   <item row="0" column="1">
+                    <spacer name="spacerItem8">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Semester</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="spacerItem9">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>273</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QComboBox" name="officer_history_dp">
+                 <item>
+                  <property name="text">
+                   <string>Officer History</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerItem10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QFrame" name="events_container">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="header_3">
+                 <property name="text">
+                  <string>Upcoming Events</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="spacerItem11">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="calendar_btn">
+                 <property name="font">
+                  <font>
+                   <underline>false</underline>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../assets/org_assets.qrc">
+                   <normaloff>:/icons/organization/icons/calendar.png</normaloff>:/icons/organization/icons/calendar.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QFrame" name="line_4">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>Line {
+    background-color: black;
+}</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::HLine</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <spacer name="spacerItem12">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>578</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -1039,6 +1032,17 @@
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="../assets/org_assets.qrc"/>

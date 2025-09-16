@@ -1,0 +1,199 @@
+{
+  "joined_orgs": [
+    {
+      "id": 1,
+      "name": "Tech Society",
+      "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 1.jpg",
+      "details": "View Details",
+      "officers": []
+    },
+    {
+      "id": 2,
+      "name": "Art Club",
+      "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 2.png",
+      "details": "View Details",
+      "officers": []
+    },
+    {
+      "id": 3,
+      "name": "Music Group",
+      "logo_path": "frontend/assets/organization/sample_orgs/Sample Org 3.png",
+      "details": "View Details",
+      "officers": []
+    },
+    {
+      "id": 4,
+      "name": "College of Information Sciences & Computing Student Council (CiSCo)",
+      "logo_path": "frontend/assets/organization/sample_orgs/CiSCo Logo.jpg",
+      "details": "View Details",
+      "officers": [
+        {
+          "name": "Ruben, Stephen Joseph",
+          "position": "Vice - Internal Chairperson",
+          "card_image_path": "frontend/assets/organization/sample_officers/Internal.jpg",
+          "photo_path": "frontend/assets/organization/sample_officers/Internal.jpg",
+          "start_date": "07/08/2025"
+        },
+        {
+          "name": "Pescasio, Jacob Hermon",
+          "position": "Vice - Internal Chairperson",
+          "card_image_path": "frontend/assets/organization/sample_officers/Internal.jpg",
+          "photo_path": "frontend/assets/organization/sample_officers/Internal.jpg",
+          "start_date": "07/08/2025"
+        },
+        {
+          "name": "Okit, Maki Auri",
+          "position": "Vice - External Chairperson",
+          "card_image_path": "frontend/assets/organization/sample_officers/External.jpg",
+          "photo_path": "frontend/assets/organization/sample_officers/External.jpg",
+          "start_date": "07/08/2025"
+        },
+        {
+          "name": "Unajan, Vianca Louise",
+          "position": "Secretary",
+          "card_image_path": "frontend/assets/organization/sample_officers/Secretary.jpg",
+          "photo_path": "frontend/assets/organization/sample_officers/Secretary.jpg",
+          "start_date": "07/08/2025"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Literature Circle",
+      "logo_path": "frontend/assets/organization/sample_orgs/Sample Org.png",
+      "details": "View Details",
+      "officers": []
+    },
+    {
+      "id": 6,
+      "name": "Science Forum",
+      "logo_path": "No Photo",
+      "details": "More Details",
+      "officers": []
+    },
+    {
+      "id": 7,
+      "name": "Drama Society",
+      "logo_path": "No Photo",
+      "details": "More Details",
+      "officers": []
+    },
+    {
+      "id": 8,
+      "name": "Photography Club",
+      "logo_path": "No Photo",
+      "details": "More Details",
+      "officers": []
+    }
+  ],
+  "college_orgs": [
+    {
+      "id": 1,
+      "name": "Robotics Club",
+      "logo_path": "No Photo",
+      "description": "Build and program robots.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 2,
+      "name": "Chess Club",
+      "logo_path": "No Photo",
+      "description": "Play and learn chess.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 3,
+      "name": "Debate Team",
+      "logo_path": "No Photo",
+      "description": "Join debates and competitions.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 4,
+      "name": "Eco Warriors",
+      "logo_path": "No Photo",
+      "description": "Environmental activities.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 5,
+      "name": "Coding Club",
+      "logo_path": "No Photo",
+      "description": "Learn programming.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 6,
+      "name": "Business Society",
+      "logo_path": "No Photo",
+      "description": "Entrepreneurship events.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 7,
+      "name": "Film Makers",
+      "logo_path": "No Photo",
+      "description": "Create short films.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 8,
+      "name": "Math Club",
+      "logo_path": "No Photo",
+      "description": "Math competitions.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    }
+  ],
+  "joined_branches": [
+    {
+      "id": 1,
+      "name": "Tech Subgroup",
+      "logo_path": "No Photo",
+      "details": "View Details",
+      "officers": []
+    },
+    {
+      "id": 2,
+      "name": "Art Section",
+      "logo_path": "No Photo",
+      "details": "View Details",
+      "officers": []
+    }
+  ],
+  "college_branches": [
+    {
+      "id": 1,
+      "name": "Robotics Section",
+      "logo_path": "No Photo",
+      "description": "Robotics branch.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    },
+    {
+      "id": 2,
+      "name": "Chess Section",
+      "logo_path": "No Photo",
+      "description": "Chess branch.",
+      "details": "More Details",
+      "apply": "Apply",
+      "officers": []
+    }
+  ]
+}

@@ -1,7 +1,9 @@
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtGui import QPixmap
 import sys
 import os
+import json
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
 from frontend.ui.org_main_ui import Ui_MainWindow
 
@@ -10,39 +12,30 @@ def get_logo_path(rel_path):
     abs_path = os.path.join(base_dir, rel_path)
     return abs_path if os.path.exists(abs_path) else rel_path
 
-joined_orgs = [
-    {"id": 1, "name": "Tech Society", "logo_path": get_logo_path("frontend/assets/organization/sample_orgs/Sample Org 1.jpg"), "details": "View Details"},
-    {"id": 2, "name": "Art Club", "logo_path": get_logo_path("frontend/assets/organization/sample_orgs/Sample Org 2.png"), "details": "View Details"},
-    {"id": 3, "name": "Music Group", "logo_path": get_logo_path("frontend/assets/organization/sample_orgs/Sample Org 3.png"), "details": "View Details"},
-    {"id": 4, "name": "Sports Team", "logo_path": get_logo_path("frontend/assets/organization/sample_orgs/Sample Org.png"), "details": "View Details"},
-    {"id": 5, "name": "Literature Circle", "logo_path": get_logo_path("frontend/assets/organization/sample_orgs/CiSCo Logo.jpg"), "details": "View Details"},
-    {"id": 6, "name": "Science Forum", "logo_path": "No Photo", "details": "More Details"},
-    {"id": 7, "name": "Drama Society", "logo_path": "No Photo", "details": "More Details"},
-    {"id": 8, "name": "Photography Club", "logo_path": "No Photo", "details": "More Details"},
-]
-
-college_orgs = [
-    {"id": 1, "name": "Robotics Club", "logo_path": "No Photo", "description": "Build and program robots.", "details": "More Details", "apply": "Apply"},
-    {"id": 2, "name": "Chess Club", "logo_path": "No Photo", "description": "Play and learn chess.", "details": "More Details", "apply": "Apply"},
-    {"id": 3, "name": "Debate Team", "logo_path": "No Photo", "description": "Join debates and competitions.", "details": "More Details", "apply": "Apply"},
-    {"id": 4, "name": "Eco Warriors", "logo_path": "No Photo", "description": "Environmental activities.", "details": "More Details", "apply": "Apply"},
-    {"id": 5, "name": "Coding Club", "logo_path": "No Photo", "description": "Learn programming.", "details": "More Details", "apply": "Apply"},
-    {"id": 6, "name": "Business Society", "logo_path": "No Photo", "description": "Entrepreneurship events.", "details": "More Details", "apply": "Apply"},
-    {"id": 7, "name": "Film Makers", "logo_path": "No Photo", "description": "Create short films.", "details": "More Details", "apply": "Apply"},
-    {"id": 8, "name": "Math Club", "logo_path": "No Photo", "description": "Math competitions.", "details": "More Details", "apply": "Apply"},
-]
-
-joined_branches = [
-    {"id": 1, "name": "Tech Subgroup", "logo_path": "No Photo", "details": "View Details"},
-    {"id": 2, "name": "Art Section", "logo_path": "No Photo", "details": "View Details"},
-]
-college_branches = [
-    {"id": 1, "name": "Robotics Section", "logo_path": "No Photo", "description": "Robotics branch.", "details": "More Details", "apply": "Apply"},
-    {"id": 2, "name": "Chess Section", "logo_path": "No Photo", "description": "Chess branch.", "details": "More Details", "apply": "Apply"},
-]
+# Load data from JSON file
+json_path = os.path.join(os.path.dirname(__file__), 'organizations_data.json')
+try:
+    with open(json_path, 'r') as file:
+        data = json.load(file)
+        joined_orgs = data.get('joined_orgs', [])
+        college_orgs = data.get('college_orgs', [])
+        joined_branches = data.get('joined_branches', [])
+        college_branches = data.get('college_branches', [])
+except FileNotFoundError:
+    print(f"Error: {json_path} not found.")
+    joined_orgs = []
+    college_orgs = []
+    joined_branches = []
+    college_branches = []
+except json.JSONDecodeError:
+    print(f"Error: {json_path} contains invalid JSON.")
+    joined_orgs = []
+    college_orgs = []
+    joined_branches = []
+    college_branches = []
 
 class JoinedOrgCard(QtWidgets.QFrame):
-    def __init__(self, logo_path, more_details):
+    def __init__(self, logo_path, more_details, org_data, main_window):
         super().__init__()
         self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -76,12 +69,13 @@ class JoinedOrgCard(QtWidgets.QFrame):
 
         btn_details = QtWidgets.QPushButton(more_details)
         btn_details.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+        btn_details.clicked.connect(lambda: main_window.show_org_details(org_data))
 
         layout.addWidget(logo_label, alignment=QtCore.Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(btn_details)
 
 class CollegeOrgCard(QtWidgets.QFrame):
-    def __init__(self, logo_path, description, more_details, apply):
+    def __init__(self, logo_path, description, more_details, apply, org_data, main_window):
         super().__init__()
         self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -123,12 +117,114 @@ class CollegeOrgCard(QtWidgets.QFrame):
         btn_apply = QtWidgets.QPushButton(apply)
         btn_details.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
         btn_apply.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+        btn_details.clicked.connect(lambda: main_window.show_org_details(org_data))
 
         layout.addWidget(logo_label, alignment=QtCore.Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(desc_label)
         layout.addWidget(btn_details)
         layout.addWidget(btn_apply)
 
+class OfficerCard(QtWidgets.QFrame):
+    def __init__(self, officer_data, main_window):
+        super().__init__()
+        self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.setMinimumSize(250, 350)
+
+        self.setStyleSheet("""
+            QFrame {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 10px;
+            }
+        """)
+
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignHCenter)
+
+        image_label = QtWidgets.QLabel()
+        image_label.setFixedSize(200, 250)
+        image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        if "card_image_path" in officer_data and officer_data["card_image_path"] != "No Photo":
+            pixmap = QPixmap(officer_data["card_image_path"]).scaled(200, 250, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.TransformationMode.SmoothTransformation)
+            if not pixmap.isNull():
+                image_label.setPixmap(pixmap)
+            else:
+                image_label.setText("No Image")
+        else:
+            image_label.setText("No Image")
+
+        name_label = QtWidgets.QLabel(officer_data.get("name", "Unknown"))
+        name_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        position_label = QtWidgets.QLabel(officer_data.get("position", "Unknown Position"))
+        position_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        btn_details = QtWidgets.QPushButton("Officer Details")
+        btn_details.setStyleSheet("background-color: #FFD700; color: black; border-radius: 5px;")
+        btn_details.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+        btn_details.clicked.connect(lambda: main_window.show_officer_dialog(officer_data))
+
+        layout.addWidget(image_label)
+        layout.addWidget(name_label)
+        layout.addWidget(position_label)
+        layout.addWidget(btn_details)
+
+class OfficerDialog(QtWidgets.QDialog):
+    def __init__(self, officer_data, parent=None):
+        super().__init__(parent)
+        self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 10px;
+            }
+        """)
+        self.setFixedSize(400, 300)  # Adjust size as needed
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+
+        # Top layout for close button
+        top_layout = QtWidgets.QHBoxLayout()
+        spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        top_layout.addItem(spacer)
+        close_btn = QtWidgets.QPushButton("X")
+        close_btn.setFixedSize(20, 20)
+        close_btn.setStyleSheet("background-color: transparent; border: none; color: gray;")
+        close_btn.clicked.connect(self.close)
+        top_layout.addWidget(close_btn)
+        main_layout.addLayout(top_layout)
+
+        # Horizontal layout for photo and info
+        hlayout = QtWidgets.QHBoxLayout()
+        photo_label = QtWidgets.QLabel()
+        parent.set_circular_logo(photo_label, officer_data.get("photo_path", "No Photo"), size=150, border_width=4)
+        hlayout.addWidget(photo_label)
+
+        vinfo = QtWidgets.QVBoxLayout()
+        name_label = QtWidgets.QLabel(officer_data.get("name", "Unknown"))
+        name_label.setFont(QtGui.QFont("Arial", 14, QtGui.QFont.Weight.Bold))
+        position_label = QtWidgets.QLabel(officer_data.get("position", "Unknown Position"))
+        date_label = QtWidgets.QLabel(f"{officer_data.get('start_date', '07/08/2025')} - Present")
+        vinfo.addWidget(name_label)
+        vinfo.addWidget(position_label)
+        vinfo.addWidget(date_label)
+        hlayout.addLayout(vinfo)
+
+        main_layout.addLayout(hlayout)
+
+        # Buttons
+        cv_btn = QtWidgets.QPushButton("Curriculum Vitae")
+        cv_btn.setStyleSheet("background-color: #084924; color: white; border-radius: 5px;")
+        contact_btn = QtWidgets.QPushButton("Contact Me")
+        contact_btn.setStyleSheet("background-color: white; border: 1px solid #ccc; border-radius: 5px;")
+        main_layout.addWidget(cv_btn)
+        main_layout.addWidget(contact_btn)
+        
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -137,6 +233,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.joined_org_count = 0
         self.college_org_count = 0
         self.ui.comboBox.currentIndexChanged.connect(self.on_combobox_changed)
+
+        self.ui.back_btn.clicked.connect(self.return_to_prev_page)
 
         self.load_orgs()
 
@@ -152,15 +250,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
-        for org in joined_orgs:
+        for org in joined_orgs or []:
             self.add_joined_org(org)
-        for org in college_orgs:
+        for org in college_orgs or []:
             self.add_college_org(org)
 
-        self.ui.joined_org_scroll.adjustSize()
-        self.ui.college_org_scroll.adjustSize()
-        self.ui.joined_org_scroll.updateGeometry()
-        self.ui.college_org_scroll.updateGeometry()
+        self.ui.joined_org_scrollable.adjustSize()
+        self.ui.college_org_scrollable.adjustSize()
+        self.ui.joined_org_scrollable.updateGeometry()
+        self.ui.college_org_scrollable.updateGeometry()
         self.update()
 
     def load_branches(self):
@@ -168,15 +266,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
-        for branch in joined_branches:
+        for branch in joined_branches or []:
             self.add_joined_org(branch)
-        for branch in college_branches:
+        for branch in college_branches or []:
             self.add_college_org(branch)
 
-        self.ui.joined_org_scroll.adjustSize()
-        self.ui.college_org_scroll.adjustSize()
-        self.ui.joined_org_scroll.updateGeometry()
-        self.ui.college_org_scroll.updateGeometry()
+        self.ui.joined_org_scrollable.adjustSize()
+        self.ui.college_org_scrollable.adjustSize()
+        self.ui.joined_org_scrollable.updateGeometry()
+        self.ui.college_org_scrollable.updateGeometry()
         self.update()
 
     def on_combobox_changed(self, index):
@@ -193,26 +291,106 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.college_org_scrollable.verticalScrollBar().setValue(0)
 
     def add_joined_org(self, joined_data):
-        card = JoinedOrgCard(joined_data["logo_path"], joined_data["details"])
+        card = JoinedOrgCard(get_logo_path(joined_data["logo_path"]), joined_data["details"], joined_data, self)
         col = self.joined_org_count % 5
         row = self.joined_org_count // 5
         self.ui.joined_org_grid.addWidget(card, row, col, alignment=QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.joined_org_count += 1
-
         self.ui.joined_org_grid.setRowMinimumHeight(row, 300)
 
     def add_college_org(self, college_data):
         card = CollegeOrgCard(
-            college_data["logo_path"],
+            get_logo_path(college_data["logo_path"]),
             college_data["description"],
             college_data["details"],
-            college_data["apply"]
+            college_data["apply"],
+            college_data,
+            self
         )
         col = self.college_org_count % 5
         row = self.college_org_count // 5
         self.ui.college_org_grid.addWidget(card, row, col, alignment=QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.college_org_count += 1
         self.ui.college_org_grid.setRowMinimumHeight(row, 300)
+
+    def set_circular_logo(self, logo_label, logo_path, size=200, border_width=4):
+        logo_label.setFixedSize(size, size)
+        if logo_path != "No Photo":
+            pixmap = QtGui.QPixmap(logo_path)
+            if not pixmap.isNull():
+                scaled_pixmap = pixmap.scaled(size, size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.TransformationMode.SmoothTransformation)
+                centered_pixmap = QtGui.QPixmap(size, size)
+                centered_pixmap.fill(QtCore.Qt.GlobalColor.transparent)
+                painter = QtGui.QPainter(centered_pixmap)
+                painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
+                x = (size - scaled_pixmap.width()) // 2
+                y = (size - scaled_pixmap.height()) // 2
+                painter.drawPixmap(x, y, scaled_pixmap)
+                painter.end()
+
+                mask = QtGui.QPixmap(size, size)
+                mask.fill(QtCore.Qt.GlobalColor.transparent)
+                painter = QtGui.QPainter(mask)
+                painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
+                path = QtGui.QPainterPath()
+                path.addEllipse(0, 0, size, size)
+                painter.fillPath(path, QtCore.Qt.GlobalColor.white)
+                painter.end()
+                centered_pixmap.setMask(mask.createMaskFromColor(QtCore.Qt.GlobalColor.white, QtCore.Qt.MaskMode.MaskOutColor))
+
+                final_pixmap = QtGui.QPixmap(size, size)
+                final_pixmap.fill(QtCore.Qt.GlobalColor.transparent)
+                painter = QtGui.QPainter(final_pixmap)
+                painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
+                painter.setBrush(QtGui.QBrush(centered_pixmap))
+                painter.setPen(QtGui.QPen(QtGui.QColor(8, 73, 36), border_width))
+                painter.drawEllipse(border_width//2, border_width//2, size - border_width, size - border_width)
+                painter.end()
+
+                logo_label.setPixmap(final_pixmap)
+            else:
+                logo_label.setText("No Logo")
+        else:
+            logo_label.setText("No Logo")
+
+    def load_officers(self, officers):
+        self.clear_grid(self.ui.officer_cards_grid)
+        self.officer_count = 0
+
+        self.ui.officers_scroll_area.verticalScrollBar().setValue(0)
+
+        for officer in officers:
+            card = OfficerCard(officer, self)
+            col = self.officer_count % 3
+            row = self.officer_count // 3
+            self.ui.officer_cards_grid.addWidget(card, row, col, alignment=QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignHCenter)
+            self.officer_count += 1
+            self.ui.officer_cards_grid.setRowMinimumHeight(row, 400)
+
+    def show_officer_dialog(self, officer_data):
+        dialog = OfficerDialog(officer_data, self)
+        dialog.exec()
+
+    def show_org_details(self, org_data):
+        self.ui.header_label_2.setText("Organization")
+        self.ui.status_btn.setText("Active")
+        self.ui.org_name.setText(org_data["name"])
+        self.ui.org_type.setText("Organization Type")
+        self.ui.brief_label.setText(org_data.get("description", "No description available"))
+        self.ui.obj_label.setText("Objectives content here")
+        self.ui.obj_label_2.setText(org_data.get("branches", "Branches content here"))
+
+        self.set_circular_logo(self.ui.logo, org_data["logo_path"])
+
+        self.load_officers(org_data.get("officers", []))
+
+        self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")
+
+        self.ui.stacked_widget.setCurrentIndex(1)
+
+    def return_to_prev_page(self):
+        self.load_orgs()
+        self.ui.stacked_widget.setCurrentIndex(0)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

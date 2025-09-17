@@ -195,12 +195,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def set_circular_logo(self, logo_label: QtWidgets.QLabel, logo_path: str, size: int = 200, border_width: int = 4) -> None:
         """Set a circular logo with a border on the given label."""
         logo_label.setFixedSize(size, size)
-        if logo_path == "No Photo" or not QtGui.QPixmap(logo_path).isNull():
+        if logo_path == "No Photo" or QtGui.QPixmap(logo_path).isNull():
             logo_label.setText("No Logo")
             return
 
         pixmap = QtGui.QPixmap(logo_path).scaled(size, size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.TransformationMode.SmoothTransformation)
-        centered_pixmap = QtGui.QPixmap(size, size).fill(QtCore.Qt.GlobalColor.transparent)
+        centered_pixmap = QtGui.QPixmap(size, size)
+        centered_pixmap.fill(QtCore.Qt.GlobalColor.transparent)
         
         with QtGui.QPainter(centered_pixmap) as painter:
             painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
@@ -208,7 +209,8 @@ class MainWindow(QtWidgets.QMainWindow):
             y = (size - pixmap.height()) // 2
             painter.drawPixmap(x, y, pixmap)
 
-        mask = QtGui.QPixmap(size, size).fill(QtCore.Qt.GlobalColor.transparent)
+        mask = QtGui.QPixmap(size, size)
+        mask.fill(QtCore.Qt.GlobalColor.transparent)
         with QtGui.QPainter(mask) as painter:
             painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
             path = QtGui.QPainterPath()
@@ -217,7 +219,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         centered_pixmap.setMask(mask.createMaskFromColor(QtCore.Qt.GlobalColor.white, QtCore.Qt.MaskMode.MaskOutColor))
 
-        final_pixmap = QtGui.QPixmap(size, size).fill(QtCore.Qt.GlobalColor.transparent)
+        final_pixmap = QtGui.QPixmap(size, size)
+        final_pixmap.fill(QtCore.Qt.GlobalColor.transparent)
         with QtGui.QPainter(final_pixmap) as painter:
             painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
             painter.setBrush(QtGui.QBrush(centered_pixmap))
@@ -278,7 +281,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.brief_label.setText(org_data.get("brief", "No brief available"))
         self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
         self.ui.obj_label_2.setText("\n".join(org_data.get("branches", [])) or "No branches available")
-        self.set_circular_logo(self.ui.logo, org_data["logo_path"])
+        self.set_circular_logo(self.ui.logo, self._get_logo_path(org_data["logo_path"]))
         
         self.ui.officer_history_dp.clear()
         semesters = org_data.get("officer_history", {}).keys()

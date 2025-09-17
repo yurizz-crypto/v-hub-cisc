@@ -20,9 +20,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="styleSheet">
-    <string/>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -88,12 +85,9 @@
            </widget>
           </item>
           <item>
-           <spacer name="spacerItem">
+           <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -175,7 +169,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string>QFrame {
+           <string notr="true">QFrame {
     background-color: white;
     border-radius: 15px;
 }</string>
@@ -232,9 +226,9 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>QFrame {
+                <string notr="true">QFrame {
     background-color: black;
-};</string>
+}</string>
                </property>
                <property name="frameShape">
                 <enum>QFrame::HLine</enum>
@@ -249,7 +243,7 @@
            <item>
             <widget class="QScrollArea" name="joined_org_scrollable">
              <property name="styleSheet">
-              <string>QScrollArea {
+              <string notr="true">QScrollArea {
     background-color: white;
 }</string>
              </property>
@@ -293,7 +287,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="spacerItem1">
+         <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -308,7 +302,7 @@
           </property>
          </spacer>
         </item>
-        <item alignment="Qt::AlignTop">
+        <item>
          <widget class="QFrame" name="other_container">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -329,7 +323,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string>QFrame {
+           <string notr="true">QFrame {
     background-color: white;
     border-radius: 15px;
 }</string>
@@ -383,9 +377,9 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string>QFrame {
+                <string notr="true">QFrame {
     background-color: black;
-};</string>
+}</string>
                </property>
                <property name="frameShape">
                 <enum>QFrame::HLine</enum>
@@ -400,7 +394,7 @@
            <item>
             <widget class="QScrollArea" name="college_org_scrollable">
              <property name="styleSheet">
-              <string>QScrollArea {
+              <string notr="true">QScrollArea {
     background-color: white;
 }</string>
              </property>
@@ -483,7 +477,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="spacerItem3">
+           <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -532,9 +526,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">QFrame {
-	background-color: white;
-	border-radius: 10px;
-};</string>
+    background-color: white;
+    border-radius: 10px;
+}</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -579,7 +573,7 @@
               </widget>
              </item>
              <item>
-              <spacer name="spacerItem4">
+              <spacer name="verticalSpacer_2">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
@@ -611,7 +605,7 @@
               </widget>
              </item>
              <item>
-              <spacer name="spacerItem5">
+              <spacer name="verticalSpacer_3">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
@@ -659,7 +653,7 @@
               </widget>
              </item>
              <item>
-              <spacer name="verticalSpacer">
+              <spacer name="verticalSpacer_4">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
@@ -726,7 +720,7 @@
               </widget>
              </item>
              <item>
-              <spacer name="verticalSpacer_2">
+              <spacer name="verticalSpacer_5">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
@@ -742,7 +736,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="spacerItem6">
+           <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -767,9 +761,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">QFrame {
-	background-color: white;
-	border-radius: 10px;
-};</string>
+    background-color: white;
+    border-radius: 10px;
+}</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -800,7 +794,7 @@
                 </widget>
                </item>
                <item>
-                <spacer name="spacerItem7">
+                <spacer name="horizontalSpacer_4">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -850,10 +844,10 @@
              <item>
               <widget class="QScrollArea" name="officers_scroll_area">
                <property name="styleSheet">
-                <string>QScrollArea {
+                <string notr="true">QScrollArea {
     background-color: white;
     border: none;
-};</string>
+}</string>
                </property>
                <property name="widgetResizable">
                 <bool>true</bool>
@@ -871,7 +865,7 @@
                  <item>
                   <layout class="QGridLayout" name="officer_cards_grid">
                    <item row="0" column="1">
-                    <spacer name="spacerItem8">
+                    <spacer name="verticalSpacer_6">
                      <property name="orientation">
                       <enum>Qt::Vertical</enum>
                      </property>
@@ -899,7 +893,7 @@
                 </widget>
                </item>
                <item>
-                <spacer name="spacerItem9">
+                <spacer name="horizontalSpacer_5">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -926,7 +920,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="spacerItem10">
+           <spacer name="horizontalSpacer_6">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -957,9 +951,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">QFrame {
-	background-color: white;
-	border-radius: 10px;
-};</string>
+    background-color: white;
+    border-radius: 10px;
+}</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -990,7 +984,7 @@
                 </widget>
                </item>
                <item>
-                <spacer name="spacerItem11">
+                <spacer name="horizontalSpacer_7">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -1072,7 +1066,166 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page"/>
+      <widget class="QWidget" name="view_members">
+       <layout class="QVBoxLayout" name="verticalLayout_18">
+        <item>
+         <layout class="QHBoxLayout" name="members_header">
+          <item>
+           <widget class="QPushButton" name="burger_btn_2">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../assets/org_assets.qrc">
+              <normaloff>:/icons/organization/icons/burger_ic.png</normaloff>:/icons/organization/icons/burger_ic.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="header_label_3">
+            <property name="font">
+             <font>
+              <pointsize>30</pointsize>
+              <kerning>true</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Organization</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>332</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QFrame" name="search_container">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLineEdit" name="search_line_3"/>
+             </item>
+             <item>
+              <widget class="QToolButton" name="search_btn_3">
+               <property name="text">
+                <string>...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../assets/org_assets.qrc">
+                 <normaloff>:/icons/organization/icons/search_ic.png</normaloff>:/icons/organization/icons/search_ic.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="back_btn_member">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../assets/org_assets.qrc">
+              <normaloff>:/icons/organization/icons/Back IC.png</normaloff>:/icons/organization/icons/Back IC.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QFrame" name="list_container">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_17">
+           <item>
+            <widget class="QWidget" name="header_4" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Member List</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="line_5">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>2</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">Line {
+    background-color: black;
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::HLine</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableView" name="list_view">
+             <property name="styleSheet">
+              <string notr="true">QTableView {
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>

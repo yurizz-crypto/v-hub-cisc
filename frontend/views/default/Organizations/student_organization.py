@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import QAbstractTableModel, Qt
 import sys
 import os
 import json
@@ -12,7 +13,6 @@ def get_logo_path(rel_path):
     abs_path = os.path.join(base_dir, rel_path)
     return abs_path if os.path.exists(abs_path) else rel_path
 
-# Load data from JSON file
 json_path = os.path.join(os.path.dirname(__file__), 'organizations_data.json')
 try:
     with open(json_path, 'r') as file:
@@ -238,7 +238,7 @@ class EventCard(QtWidgets.QFrame):
         super().__init__()
         self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
-        self.setMinimumHeight(100)  # Adjusted height to fit the design
+        self.setMinimumHeight(125)  # Adjusted height to fit the design
         self.setStyleSheet("""
             QFrame {
                 background-color: #fff;
@@ -282,6 +282,29 @@ class EventCard(QtWidgets.QFrame):
         content_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(content_label)
 
+class ViewMembers(QAbstractTableModel):
+    def __init__(self, data):
+        super().__init__()
+        self._data = data
+        self._headers = ["Name", "Position", "Status", "Join Date"]
+
+    def rowCount(self, parent=None):
+        return len(self._data)
+
+    def columnCount(self, parent=None):
+        return len(self._headers)
+    
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole:
+            return self._data[index.row()][index.column()]
+        return None
+
+    def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole:
+            if orientation == Qt.Orientation.Horizontal:
+                return self._headers[section]
+        return None
+    
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -289,33 +312,37 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.joined_org_count = 0
         self.college_org_count = 0
+        self.table = self.findChild(QtWidgets.QTableView, "list_view")
+        self.current_org = None
+    
         self.ui.comboBox.currentIndexChanged.connect(self.on_combobox_changed)
-
+        self.ui.view_members_btn.clicked.connect(self.to_members_page)
+        self.ui.back_btn_member.clicked.connect(self.return_to_prev_page)
         self.ui.back_btn.clicked.connect(self.return_to_prev_page)
-        self.setup_scroll_area()
+        # Connect search button to search function
+        self.ui.search_btn.clicked.connect(self.perform_search)
+
+        self.ui.search_btn_3.clicked.connect(self.perform_member_search)
+        self.no_member_label = QtWidgets.QLabel("No Record(s) Found", self.ui.list_container)
+        self.no_member_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.no_member_label.setStyleSheet("font-size: 20px;")
+        self.no_member_label.hide()
 
         self.load_orgs()
 
-    def setup_scroll_area(self):
-        self.ui.joined_org_scrollable.setStyleSheet("""
-            QScrollArea {
-                background-color: white;
-            }
-        """)
+    def perform_member_search(self):
+        """Handle member search button click and filter members based on search text."""
+        search_text = self.ui.search_line_3.text().strip().lower()
+        self.load_members(search_text)
 
-        self.ui.college_org_scrollable.setStyleSheet("""
-            QScrollArea {
-                background-color: white;
-            }
-        """)
-
-        self.ui.officers_scroll_area.setStyleSheet("""
-            QScrollArea {
-                background-color: white;
-            }
-        """)
-
-
+    def perform_search(self):
+        """Handle search button click and filter organizations/branches based on search text."""
+        search_text = self.ui.search_line.text().strip().lower()
+        current_index = self.ui.comboBox.currentIndex()
+        if current_index == 0:
+            self.load_orgs(search_text)
+        else:
+            self.load_branches(search_text)
 
     def clear_grid(self, grid_layout):
         for i in reversed(range(grid_layout.count())):
@@ -324,37 +351,104 @@ class MainWindow(QtWidgets.QMainWindow):
             if widget:
                 widget.setParent(None)
 
-    def load_orgs(self):
+    def load_orgs(self, search_text=""):
+        """Load organizations, filtered by search_text if provided."""
         self.clear_grid(self.ui.joined_org_grid)
         self.clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
-        for org in joined_orgs or []:
+        
+        filtered_joined_orgs = [
+            org for org in joined_orgs
+            if search_text in org["name"].lower() or search_text == ""
+        ]
+        filtered_college_orgs = [
+            org for org in college_orgs
+            if search_text in org["name"].lower() or search_text == ""
+        ]
+        
+        for org in filtered_joined_orgs:
             self.add_joined_org(org)
-        for org in college_orgs or []:
+        for org in filtered_college_orgs:
             self.add_college_org(org)
 
-        self.ui.joined_org_scrollable.adjustSize()
-        self.ui.college_org_scrollable.adjustSize()
-        self.ui.joined_org_scrollable.updateGeometry()
-        self.ui.college_org_scrollable.updateGeometry()
-        self.update()
+        if self.joined_org_count == 0:
+            no_record_label = QtWidgets.QLabel("No Record(s) Found")
+            no_record_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            no_record_label.setStyleSheet("font-size: 20px;")
+            self.ui.joined_org_grid.addWidget(no_record_label, 0, 0, 1, 5)
 
-    def load_branches(self):
+        if self.college_org_count == 0:
+            no_record_label = QtWidgets.QLabel("No Record(s) Found")
+            no_record_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            no_record_label.setStyleSheet("font-size: 20px;")
+            self.ui.college_org_grid.addWidget(no_record_label, 0, 0, 1, 5)
+
+            self.ui.joined_org_scrollable.adjustSize()
+            self.ui.college_org_scrollable.adjustSize()
+            self.ui.joined_org_scrollable.updateGeometry()
+            self.ui.college_org_scrollable.updateGeometry()
+            self.update()
+
+    def load_branches(self, search_text=""):
+        """Load branches, filtered by search_text if provided."""
         self.clear_grid(self.ui.joined_org_grid)
         self.clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
-        for branch in joined_branches or []:
+        
+        filtered_joined_branches = [
+            branch for branch in joined_branches
+            if search_text in branch["name"].lower() or search_text == ""
+        ]
+        filtered_college_branches = [
+            branch for branch in college_branches
+            if search_text in branch["name"].lower() or search_text == ""
+        ]
+        
+        for branch in filtered_joined_branches:
             self.add_joined_org(branch)
-        for branch in college_branches or []:
+        for branch in filtered_college_branches:
             self.add_college_org(branch)
+
+        if self.joined_org_count == 0:
+            no_record_label = QtWidgets.QLabel("No Record(s) Found")
+            no_record_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            no_record_label.setStyleSheet("font-size: 20px;")
+            self.ui.joined_org_grid.addWidget(no_record_label, 0, 0, 1, 5)
+
+        if self.college_org_count == 0:
+            no_record_label = QtWidgets.QLabel("No Record(s) Found")
+            no_record_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            no_record_label.setStyleSheet("font-size: 20px;")
+            self.ui.college_org_grid.addWidget(no_record_label, 0, 0, 1, 5)
 
         self.ui.joined_org_scrollable.adjustSize()
         self.ui.college_org_scrollable.adjustSize()
         self.ui.joined_org_scrollable.updateGeometry()
         self.ui.college_org_scrollable.updateGeometry()
         self.update()
+
+    def load_members(self, search_text=""):
+        """Load and filter members into the table, show 'No Record(s) Found' if empty."""
+        if self.current_org:
+            members_data = self.current_org.get("members", [])
+            filtered_members = [
+                member for member in members_data
+                if any(search_text in str(field).lower() for field in member)
+            ] if search_text else members_data
+
+        model = ViewMembers(filtered_members)
+        self.ui.list_view.setModel(model)
+        self.ui.list_view.horizontalHeader().setStretchLastSection(True)
+        self.ui.list_view.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+
+        if model.rowCount() == 0:
+            self.ui.list_view.hide()
+            self.no_member_label.show()
+        else:
+            self.ui.list_view.show()
+            self.no_member_label.hide()
 
     def on_combobox_changed(self, index):
         if index == 0:
@@ -464,27 +558,40 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.scroll_area_events.verticalScrollBar().setValue(0)
 
     def show_org_details(self, org_data):
-            self.ui.header_label_2.setText("Organization")
-            self.ui.status_btn.setText("Active")
-            self.ui.org_name.setText(org_data["name"])
-            self.ui.org_type.setText("Organization Type")
-            self.ui.brief_label.setText(org_data.get("brief", "No brief available"))
-            self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
-            branches_text = "\n".join(org_data.get("branches", []))
-            self.ui.obj_label_2.setText(branches_text or "No branches available")
+        self.current_org = org_data
 
-            self.set_circular_logo(self.ui.logo, org_data["logo_path"])
+        self.ui.header_label_2.setText("Organization")
+        self.ui.status_btn.setText("Active")
+        self.ui.org_name.setText(org_data["name"])
+        self.ui.org_type.setText("Organization Type")
+        self.ui.brief_label.setText(org_data.get("brief", "No brief available"))
+        self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
+        branches_text = "\n".join(org_data.get("branches", []))
+        self.ui.obj_label_2.setText(branches_text or "No branches available")
 
-            self.load_officers(org_data.get("officers", []))
-            self.load_events(org_data.get("events", []))
+        self.set_circular_logo(self.ui.logo, org_data["logo_path"])
 
-            self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")
+        self.load_officers(org_data.get("officers", []))
+        self.load_events(org_data.get("events", []))
 
-            self.ui.stacked_widget.setCurrentIndex(1)
+        self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")
+
+        self.ui.stacked_widget.setCurrentIndex(1)
+
+    def to_members_page(self):
+        self.load_members()
+        self.ui.stacked_widget.setCurrentIndex(2)
 
     def return_to_prev_page(self):
-        self.load_orgs()
-        self.ui.stacked_widget.setCurrentIndex(0)
+        current_index = self.ui.comboBox.currentIndex()
+        if current_index == 0:
+            self.load_orgs()
+        else:
+            self.load_branches()
+        if self.ui.stacked_widget.currentIndex() == 2:
+            self.ui.stacked_widget.setCurrentIndex(1)
+        else:
+            self.ui.stacked_widget.setCurrentIndex(0)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

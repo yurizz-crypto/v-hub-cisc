@@ -13,6 +13,33 @@
         {"name": "Hackathon Prep", "date": "2025-11-10", "description": "Preparation for upcoming hackathon."}
       ],
       "officers": [],
+      "officer_history": {
+        "A.Y. 2024-2025 - 1st Semester": [
+          {
+            "name": "Alice Johnson",
+            "position": "President",
+            "card_image_path": "frontend/assets/organization/sample_officers/President.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/President.jpg",
+            "start_date": "07/08/2024"
+          },
+          {
+            "name": "Bob Smith",
+            "position": "Vice President",
+            "card_image_path": "frontend/assets/organization/sample_officers/VicePresident.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/VicePresident.jpg",
+            "start_date": "07/08/2024"
+          }
+        ],
+        "A.Y. 2024-2025 - 2nd Semester": [
+          {
+            "name": "Carol Davis",
+            "position": "President",
+            "card_image_path": "frontend/assets/organization/sample_officers/President2.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/President2.jpg",
+            "start_date": "01/15/2025"
+          }
+        ]
+      },
       "members": [
         ["Alice Johnson", "President", "Active", "2023-01-15"],
         ["Bob Smith", "Member", "Active", "2023-02-20"],
@@ -174,7 +201,7 @@
       "details": "More Details",
       "brief": "Club for photographers.",
       "objectives": "Capture and edit photos.",
-      "branches": ["Digital Branch", "Film Branch"],
+      "branches": ["Digital Branch", "File Branch"],
       "events": [
         {"name": "Photo Walk", "date": "2025-09-30", "description": "Group photography outing."}
       ],
@@ -412,6 +439,33 @@
         {"name": "Robotics Demo", "date": "2025-11-01", "description": "Demo of built robots."}
       ],
       "officers": [],
+      "officer_history": {
+        "A.Y. 2024-2025 - 1st Semester": [
+          {
+            "name": "Sam Foster",
+            "position": "Lead",
+            "card_image_path": "frontend/assets/organization/sample_officers/Lead.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/Lead.jpg",
+            "start_date": "07/08/2024"
+          },
+          {
+            "name": "Tina Gray",
+            "position": "Assistant Lead",
+            "card_image_path": "frontend/assets/organization/sample_officers/AssistantLead.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/AssistantLead.jpg",
+            "start_date": "07/08/2024"
+          }
+        ],
+        "A.Y. 2024-2025 - 2nd Semester": [
+          {
+            "name": "Uma Harris",
+            "position": "Lead",
+            "card_image_path": "frontend/assets/organization/sample_officers/Lead2.jpg",
+            "photo_path": "frontend/assets/organization/sample_officers/Lead2.jpg",
+            "start_date": "01/15/2025"
+          }
+        ]
+      },
       "members": [
         ["Sam Foster", "Lead", "Active", "2022-07-01"],
         ["Tina Gray", "Member", "Active", "2022-08-05"],

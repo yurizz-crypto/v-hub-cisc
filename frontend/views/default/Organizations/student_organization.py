@@ -34,6 +34,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.back_btn.clicked.connect(self._return_to_prev_page)
         self.ui.search_btn.clicked.connect(self._perform_search)
         self.ui.search_btn_3.clicked.connect(self._perform_member_search)
+        self.ui.officer_history_dp.currentIndexChanged.connect(self._on_officer_history_changed)
 
     def _setup_no_member_label(self) -> None:
         """Initialize the 'No Record(s) Found' label for members."""
@@ -225,11 +226,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
         logo_label.setPixmap(final_pixmap)
 
+    def _on_officer_history_changed(self, index: int) -> None:
+        """Handle officer history combobox change to display officers for selected semester."""
+        if not self.current_org:
+            return
+        selected_semester = self.ui.officer_history_dp.itemText(index)
+        officers = self.current_org.get("officer_history", {}).get(selected_semester, [])
+        self.load_officers(officers)
+
     def load_officers(self, officers: List[Dict]) -> None:
         """Load officer cards into the officer grid."""
         self._clear_grid(self.ui.officer_cards_grid)
         self.officer_count = 0
         self.ui.officers_scroll_area.verticalScrollBar().setValue(0)
+
+        if not officers:
+            self._add_no_record_label(self.ui.officer_cards_grid)
+            return
 
         for officer in officers:
             card = OfficerCard(officer, self)
@@ -266,6 +279,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
         self.ui.obj_label_2.setText("\n".join(org_data.get("branches", [])) or "No branches available")
         self.set_circular_logo(self.ui.logo, org_data["logo_path"])
+        
+        self.ui.officer_history_dp.clear()
+        semesters = org_data.get("officer_history", {}).keys()
+        self.ui.officer_history_dp.addItem("Current Officers")
+        self.ui.officer_history_dp.addItems(sorted(semesters))
+        
         self.load_officers(org_data.get("officers", []))
         self.load_events(org_data.get("events", []))
         self.ui.label.setText("A.Y. 2025-2026 - 1st Semester")

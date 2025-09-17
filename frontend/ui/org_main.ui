@@ -54,7 +54,7 @@
           <item>
            <widget class="QPushButton" name="burger_btn">
             <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
+             <cursorShape>ArrowCursor</cursorShape>
             </property>
             <property name="text">
              <string/>
@@ -125,6 +125,12 @@
              </item>
              <item>
               <widget class="QToolButton" name="search_btn">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::TabFocus</enum>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
@@ -137,6 +143,9 @@
                  <width>30</width>
                  <height>30</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Return, Enter</string>
                </property>
               </widget>
              </item>
@@ -446,7 +455,7 @@
           <item>
            <widget class="QPushButton" name="burger_btn__details">
             <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
+             <cursorShape>ArrowCursor</cursorShape>
             </property>
             <property name="text">
              <string/>
@@ -491,6 +500,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="back_btn">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -503,6 +515,9 @@
               <width>30</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Esc</string>
             </property>
            </widget>
           </item>
@@ -1073,7 +1088,7 @@
           <item>
            <widget class="QPushButton" name="burger_btn_2">
             <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
+             <cursorShape>ArrowCursor</cursorShape>
             </property>
             <property name="text">
              <string/>
@@ -1130,6 +1145,9 @@
              </item>
              <item>
               <widget class="QToolButton" name="search_btn_3">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>...</string>
                </property>
@@ -1142,6 +1160,9 @@
                  <width>30</width>
                  <height>30</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Return, Enter</string>
                </property>
               </widget>
              </item>
@@ -1162,6 +1183,9 @@
               <width>30</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Esc</string>
             </property>
            </widget>
           </item>

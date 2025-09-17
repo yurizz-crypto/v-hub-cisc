@@ -15,7 +15,6 @@ class Ui_MainWindow(object):
         MainWindow.resize(1200, 800)
         MainWindow.setMinimumSize(QtCore.QSize(600, 500))
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
-        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setContentsMargins(10, 0, 10, 0)
@@ -35,7 +34,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.burger_btn = QtWidgets.QPushButton(parent=self.landing_page)
-        self.burger_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.burger_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.burger_btn.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/organization/icons/burger_ic.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -67,6 +66,8 @@ class Ui_MainWindow(object):
         self.search_line.setObjectName("search_line")
         self.horizontalLayout.addWidget(self.search_line)
         self.search_btn = QtWidgets.QToolButton(parent=self.frame)
+        self.search_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.search_btn.setFocusPolicy(QtCore.Qt.FocusPolicy.TabFocus)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/icons/organization/icons/search_ic.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.search_btn.setIcon(icon1)
@@ -84,6 +85,10 @@ class Ui_MainWindow(object):
         self.joined_container.setSizePolicy(sizePolicy)
         self.joined_container.setMinimumSize(QtCore.QSize(0, 400))
         self.joined_container.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.joined_container.setStyleSheet("QFrame {\n"
+"    background-color: white;\n"
+"    border-radius: 15px;\n"
+"}")
         self.joined_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.joined_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.joined_container.setObjectName("joined_container")
@@ -99,12 +104,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.joined_label, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.hr_line = QtWidgets.QFrame(parent=self.joined_container)
         self.hr_line.setMaximumSize(QtCore.QSize(16777215, 2))
+        self.hr_line.setStyleSheet("QFrame {\n"
+"    background-color: black;\n"
+"}")
         self.hr_line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.hr_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.hr_line.setObjectName("hr_line")
         self.verticalLayout_7.addWidget(self.hr_line, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.verticalLayout_3.addLayout(self.verticalLayout_7)
         self.joined_org_scrollable = QtWidgets.QScrollArea(parent=self.joined_container)
+        self.joined_org_scrollable.setStyleSheet("QScrollArea {\n"
+"    background-color: white;\n"
+"}")
         self.joined_org_scrollable.setWidgetResizable(True)
         self.joined_org_scrollable.setObjectName("joined_org_scrollable")
         self.joined_org_scroll = QtWidgets.QWidget()
@@ -136,6 +147,10 @@ class Ui_MainWindow(object):
         self.other_container.setSizePolicy(sizePolicy)
         self.other_container.setMinimumSize(QtCore.QSize(0, 500))
         self.other_container.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.other_container.setStyleSheet("QFrame {\n"
+"    background-color: white;\n"
+"    border-radius: 15px;\n"
+"}")
         self.other_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.other_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.other_container.setObjectName("other_container")
@@ -150,12 +165,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.college_label, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.hr_line_2 = QtWidgets.QFrame(parent=self.other_container)
         self.hr_line_2.setMaximumSize(QtCore.QSize(16777215, 2))
+        self.hr_line_2.setStyleSheet("QFrame {\n"
+"    background-color: black;\n"
+"}")
         self.hr_line_2.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.hr_line_2.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.hr_line_2.setObjectName("hr_line_2")
         self.verticalLayout_5.addWidget(self.hr_line_2, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
         self.college_org_scrollable = QtWidgets.QScrollArea(parent=self.other_container)
+        self.college_org_scrollable.setStyleSheet("QScrollArea {\n"
+"    background-color: white;\n"
+"}")
         self.college_org_scrollable.setWidgetResizable(True)
         self.college_org_scrollable.setObjectName("college_org_scrollable")
         self.college_org_scroll = QtWidgets.QWidget()
@@ -176,7 +197,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addLayout(self.college_org_grid)
         self.college_org_scrollable.setWidget(self.college_org_scroll)
         self.verticalLayout_6.addWidget(self.college_org_scrollable)
-        self.verticalLayout_2.addWidget(self.other_container, 0, QtCore.Qt.AlignmentFlag.AlignTop)
+        self.verticalLayout_2.addWidget(self.other_container)
         self.stacked_widget.addWidget(self.landing_page)
         self.org_details = QtWidgets.QWidget()
         self.org_details.setObjectName("org_details")
@@ -185,7 +206,7 @@ class Ui_MainWindow(object):
         self.header_org_details = QtWidgets.QHBoxLayout()
         self.header_org_details.setObjectName("header_org_details")
         self.burger_btn__details = QtWidgets.QPushButton(parent=self.org_details)
-        self.burger_btn__details.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.burger_btn__details.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.burger_btn__details.setText("")
         self.burger_btn__details.setIcon(icon)
         self.burger_btn__details.setIconSize(QtCore.QSize(40, 40))
@@ -201,6 +222,7 @@ class Ui_MainWindow(object):
         spacerItem2 = QtWidgets.QSpacerItem(332, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.header_org_details.addItem(spacerItem2)
         self.back_btn = QtWidgets.QPushButton(parent=self.org_details)
+        self.back_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.back_btn.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icons/organization/icons/Back IC.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -217,7 +239,7 @@ class Ui_MainWindow(object):
         self.org_details_container.setStyleSheet("QFrame {\n"
 "    background-color: white;\n"
 "    border-radius: 10px;\n"
-"};")
+"}")
         self.org_details_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.org_details_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.org_details_container.setObjectName("org_details_container")
@@ -300,7 +322,7 @@ class Ui_MainWindow(object):
         self.officers_frame.setStyleSheet("QFrame {\n"
 "    background-color: white;\n"
 "    border-radius: 10px;\n"
-"};")
+"}")
         self.officers_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.officers_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.officers_frame.setObjectName("officers_frame")
@@ -331,6 +353,10 @@ class Ui_MainWindow(object):
         self.line_3.setObjectName("line_3")
         self.verticalLayout_12.addWidget(self.line_3, 0, QtCore.Qt.AlignmentFlag.AlignTop)
         self.officers_scroll_area = QtWidgets.QScrollArea(parent=self.officers_frame)
+        self.officers_scroll_area.setStyleSheet("QScrollArea {\n"
+"    background-color: white;\n"
+"    border: none;\n"
+"}")
         self.officers_scroll_area.setWidgetResizable(True)
         self.officers_scroll_area.setObjectName("officers_scroll_area")
         self.scroll_area_contents = QtWidgets.QWidget()
@@ -366,7 +392,7 @@ class Ui_MainWindow(object):
         self.events_container.setStyleSheet("QFrame {\n"
 "    background-color: white;\n"
 "    border-radius: 10px;\n"
-"};")
+"}")
         self.events_container.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.events_container.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.events_container.setObjectName("events_container")
@@ -421,7 +447,7 @@ class Ui_MainWindow(object):
         self.members_header = QtWidgets.QHBoxLayout()
         self.members_header.setObjectName("members_header")
         self.burger_btn_2 = QtWidgets.QPushButton(parent=self.view_members)
-        self.burger_btn_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.burger_btn_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.burger_btn_2.setText("")
         self.burger_btn_2.setIcon(icon)
         self.burger_btn_2.setIconSize(QtCore.QSize(40, 40))
@@ -446,6 +472,7 @@ class Ui_MainWindow(object):
         self.search_line_3.setObjectName("search_line_3")
         self.horizontalLayout_9.addWidget(self.search_line_3)
         self.search_btn_3 = QtWidgets.QToolButton(parent=self.search_container)
+        self.search_btn_3.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.search_btn_3.setIcon(icon1)
         self.search_btn_3.setIconSize(QtCore.QSize(30, 30))
         self.search_btn_3.setObjectName("search_btn_3")
@@ -475,7 +502,7 @@ class Ui_MainWindow(object):
         self.line_5.setMaximumSize(QtCore.QSize(16777215, 2))
         self.line_5.setStyleSheet("Line {\n"
 "    background-color: black;\n"
-"};")
+"}")
         self.line_5.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_5.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_5.setObjectName("line_5")
@@ -486,7 +513,7 @@ class Ui_MainWindow(object):
 "    border: none;\n"
 "    border-radius: 10px;\n"
 "    background-color: white;\n"
-"};")
+"}")
         self.list_view.setObjectName("list_view")
         self.verticalLayout_17.addWidget(self.list_view)
         self.verticalLayout_18.addWidget(self.list_container)
@@ -508,29 +535,11 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(0, _translate("MainWindow", "Organizations"))
         self.comboBox.setItemText(1, _translate("MainWindow", "Branches"))
         self.search_btn.setText(_translate("MainWindow", "..."))
-        self.joined_container.setStyleSheet(_translate("MainWindow", "QFrame {\n"
-"    background-color: white;\n"
-"    border-radius: 15px;\n"
-"}"))
+        self.search_btn.setShortcut(_translate("MainWindow", "Return, Enter"))
         self.joined_label.setText(_translate("MainWindow", "Joined Organization(s)"))
-        self.hr_line.setStyleSheet(_translate("MainWindow", "QFrame {\n"
-"    background-color: black;\n"
-"};"))
-        self.joined_org_scrollable.setStyleSheet(_translate("MainWindow", "QScrollArea {\n"
-"    background-color: white;\n"
-"}"))
-        self.other_container.setStyleSheet(_translate("MainWindow", "QFrame {\n"
-"    background-color: white;\n"
-"    border-radius: 15px;\n"
-"}"))
         self.college_label.setText(_translate("MainWindow", "College Organization(s)"))
-        self.hr_line_2.setStyleSheet(_translate("MainWindow", "QFrame {\n"
-"    background-color: black;\n"
-"};"))
-        self.college_org_scrollable.setStyleSheet(_translate("MainWindow", "QScrollArea {\n"
-"    background-color: white;\n"
-"}"))
         self.header_label_2.setText(_translate("MainWindow", "Organization"))
+        self.back_btn.setShortcut(_translate("MainWindow", "Esc"))
         self.header.setText(_translate("MainWindow", "Organization Details"))
         self.status_btn.setText(_translate("MainWindow", "Active"))
         self.logo.setText(_translate("MainWindow", "Logo"))
@@ -544,13 +553,11 @@ class Ui_MainWindow(object):
         self.obj_label_2.setText(_translate("MainWindow", "BranchList"))
         self.header_2.setText(_translate("MainWindow", "Organization Officers"))
         self.view_members_btn.setText(_translate("MainWindow", "View Members"))
-        self.officers_scroll_area.setStyleSheet(_translate("MainWindow", "QScrollArea {\n"
-"    background-color: white;\n"
-"    border: none;\n"
-"};"))
         self.label.setText(_translate("MainWindow", "Semester"))
         self.officer_history_dp.setItemText(0, _translate("MainWindow", "Officer History"))
         self.header_3.setText(_translate("MainWindow", "Upcoming Events"))
         self.header_label_3.setText(_translate("MainWindow", "Organization"))
         self.search_btn_3.setText(_translate("MainWindow", "..."))
+        self.search_btn_3.setShortcut(_translate("MainWindow", "Return, Enter"))
+        self.back_btn_member.setShortcut(_translate("MainWindow", "Esc"))
         self.label_2.setText(_translate("MainWindow", "Member List"))

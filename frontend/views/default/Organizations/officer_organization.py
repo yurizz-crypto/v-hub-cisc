@@ -1,5 +1,5 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtWidgets import QStyledItemDelegate, QHBoxLayout, QPushButton, QMessageBox, QFileDialog
 import sys
 import os
 import json
@@ -11,8 +11,31 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 from frontend.utils.orgs_custom_widgets.cards import JoinedOrgCard, EventCard, CollegeOrgCard, OfficerCard
 from frontend.utils.orgs_custom_widgets.dialogs import OfficerDialog
 from frontend.utils.orgs_custom_widgets.tables import ViewMembers
-from frontend.utils.orgs_custom_widgets.dialogs import EditOfficerDialog, EditMemberDialog
+from frontend.utils.orgs_custom_widgets.dialogs import EditMemberDialog
 from frontend.ui.org_main_ui import Ui_MainWindow
+
+class ActionDelegate(QStyledItemDelegate):
+    edit_clicked = QtCore.pyqtSignal(int)
+    kick_clicked = QtCore.pyqtSignal(int)
+
+    def createEditor(self, parent, option, index):
+        editor = QtWidgets.QWidget(parent)
+        layout = QHBoxLayout(editor)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(5)
+
+        edit_btn = QPushButton("Edit", editor)
+        edit_btn.clicked.connect(lambda: self.edit_clicked.emit(index.row()))
+        layout.addWidget(edit_btn)
+
+        kick_btn = QPushButton("Kick", editor)
+        kick_btn.clicked.connect(lambda: self.kick_clicked.emit(index.row()))
+        layout.addWidget(kick_btn)
+
+        return editor
+
+    def updateEditorGeometry(self, editor, option, index):
+        editor.setGeometry(option.rect)
 
 class EditOrgDialog(QtWidgets.QDialog):
     def __init__(self, org_data: Dict, parent: QtWidgets.QMainWindow):
@@ -255,6 +278,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.table.verticalHeader().hide()
 
+        # Remove existing Manage Applicants button if present
+        if self.manage_applicants_btn:
+            self.ui.verticalLayout_16.removeWidget(self.manage_applicants_btn)
+            self.manage_applicants_btn.deleteLater()
+            self.manage_applicants_btn = None
+            # Restore original header layout
+            self.ui.verticalLayout_16.removeItem(self.ui.verticalLayout_16.itemAt(0))  # Remove header_hlayout
+            self.ui.verticalLayout_16.insertWidget(0, self.ui.label_2)
+            self.ui.verticalLayout_16.addWidget(self.ui.line_5)
+
         if self.is_managing:
             for row in range(len(filtered_members)):
                 action_widget = QtWidgets.QWidget()
@@ -275,20 +308,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
                 self.table.setIndexWidget(model.index(row, model.columnCount() - 1), action_widget)
 
-            # Add Manage Applicants button to header only if not already present
-            if not self.manage_applicants_btn:
-                self.ui.verticalLayout_16.removeWidget(self.ui.label_2)
-                self.ui.verticalLayout_16.removeWidget(self.ui.line_5)
-                header_hlayout = QtWidgets.QHBoxLayout()
-                self.ui.label_2.setText("Member List")
-                header_hlayout.addWidget(self.ui.label_2)
-                header_hlayout.addStretch()
-                self.manage_applicants_btn = QtWidgets.QPushButton("Manage Applicants")
-                self.manage_applicants_btn.setStyleSheet("background-color: #084924; color: white; border-radius: 5px;")
-                # Connect to a method if needed, e.g., self.manage_applicants_btn.clicked.connect(self.manage_applicants)
-                header_hlayout.addWidget(self.manage_applicants_btn)
-                self.ui.verticalLayout_16.addLayout(header_hlayout)
-                self.ui.verticalLayout_16.addWidget(self.ui.line_5)
+            # Add Manage Applicants button only if user is an officer
+            self.ui.verticalLayout_16.removeWidget(self.ui.label_2)
+            self.ui.verticalLayout_16.removeWidget(self.ui.line_5)
+            header_hlayout = QtWidgets.QHBoxLayout()
+            self.ui.label_2.setText("Member List")
+            header_hlayout.addWidget(self.ui.label_2)
+            header_hlayout.addStretch()
+            self.manage_applicants_btn = QtWidgets.QPushButton("Manage Applicants")
+            self.manage_applicants_btn.setStyleSheet("background-color: #084924; color: white; border-radius: 5px;")
+            # Connect to a method if needed, e.g., self.manage_applicants_btn.clicked.connect(self.manage_applicants)
+            header_hlayout.addWidget(self.manage_applicants_btn)
+            self.ui.verticalLayout_16.insertLayout(0, header_hlayout)
+            self.ui.verticalLayout_16.addWidget(self.ui.line_5)
 
         if not filtered_members:
             self.table.hide()
@@ -520,8 +552,34 @@ class MainWindow(QtWidgets.QMainWindow):
             self.save_data()
             self.load_members(self.ui.search_line_3.text().strip().lower())
 
-if __name__ == "__main__":
+    def kick_member(self, row: int) -> None:
+        """Remove a member from the organization."""
+        if not self.current_org:
+            return
+        search_text = self.ui.search_line_3.text().strip().lower()
+        members = self.current_org.get("members", [])
+        filtered_members = [mem for mem in members if search_text in mem[0].lower() or not search_text]
+        
+        if row >= len(filtered_members):
+            return
+        
+        filtered_member = filtered_members[row]
+        original_index = next((i for i, mem in enumerate(members) if mem[0] == filtered_member[0]), None)
+        
+        if original_index is None:
+            return
+        
+        confirm = QMessageBox.question(
+            self, "Confirm Kick",
+            f"Are you sure you want to kick {members[original_index][0]}?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if confirm == QMessageBox.StandardButton.Yes:
+            del self.current_org["members"][original_index]
+            self.save_data()
+            self.load_members(search_text)
 
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()

@@ -81,12 +81,6 @@
             ],
             "members": [
                 [
-                    "Jane Smith",
-                    "President",
-                    "Active",
-                    "2022-06-01"
-                ],
-                [
                     "Yuri Salise",
                     "Member",
                     "Inactive",
@@ -157,7 +151,15 @@
                     "description": "Annual robotics challenge."
                 }
             ],
-            "officers": [],
+            "officers": [                
+                {
+                    "name": "Ruben, Stephen Joseph",
+                    "position": "Vice - Internal Chairperson",
+                    "card_image_path": "frontend/assets/organization/sample_officers/Chairperson.jpg",
+                    "photo_path": "frontend/assets/organization/sample_officers/Chairperson.jpg",
+                    "start_date": "07/08/2025"
+                }
+            ],
             "members": [
                 [
                     "Ella Perez",

@@ -27,3 +27,9 @@ class ViewMembers(QAbstractTableModel):
             if orientation == Qt.Orientation.Horizontal:
                 return self._headers[section]
         return None
+    
+    def flags(self, index, parent=None):
+        flags = super().flags(index)
+        if self.is_managing and index.column() == len(self._headers) - 1:
+            flags |= Qt.ItemFlag.ItemIsEditable
+        return flags

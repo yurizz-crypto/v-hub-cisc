@@ -42,7 +42,7 @@ class JoinedOrgCard(QtWidgets.QFrame):
         layout.addWidget(btn_details)
 
 class CollegeOrgCard(QtWidgets.QFrame):
-    def __init__(self, logo_path, description, more_details, apply, org_data, main_window):
+    def __init__(self, logo_path, description, more_details, org_data, main_window):
         super().__init__()
         self.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -81,7 +81,7 @@ class CollegeOrgCard(QtWidgets.QFrame):
         desc_label.setWordWrap(True)
 
         btn_details = QtWidgets.QPushButton(more_details)
-        btn_apply = QtWidgets.QPushButton(apply)
+        btn_apply = QtWidgets.QPushButton("Apply")
         btn_details.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
         btn_apply.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
         btn_details.clicked.connect(lambda: main_window.show_org_details(org_data))

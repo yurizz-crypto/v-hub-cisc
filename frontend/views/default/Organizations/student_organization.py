@@ -51,21 +51,16 @@ class MainWindow(QtWidgets.QMainWindow):
         return abs_path if os.path.exists(abs_path) else rel_path
 
     @staticmethod
-    def _load_data() -> tuple[List[Dict], List[Dict], List[Dict], List[Dict]]:
+    def _load_data() -> List[Dict]:
         """Load organization and branch data from JSON file."""
         json_path = os.path.join(os.path.dirname(__file__), 'organizations_data.json')
         try:
             with open(json_path, 'r') as file:
                 data = json.load(file)
-                return (
-                    data.get('joined_orgs', []),
-                    data.get('college_orgs', []),
-                    data.get('joined_branches', []),
-                    data.get('college_branches', [])
-                )
+                return data.get('organizations', [])
         except (FileNotFoundError, json.JSONDecodeError) as e:
             print(f"Error loading {json_path}: {str(e)}")
-            return [], [], [], []
+            return []
 
     def _clear_grid(self, grid_layout: QtWidgets.QGridLayout) -> None:
         """Remove all widgets from the given grid layout."""
@@ -100,14 +95,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def load_orgs(self, search_text: str = "") -> None:
         """Load and display organizations, filtered by search text."""
-        joined_orgs, college_orgs, _, _ = self._load_data()
+        organizations = self._load_data()
         self._clear_grid(self.ui.joined_org_grid)
         self._clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
 
-        filtered_joined = [org for org in joined_orgs if search_text in org["name"].lower() or not search_text]
-        filtered_college = [org for org in college_orgs if search_text in org["name"].lower() or not search_text]
+        filtered_joined = [org for org in organizations if org["is_joined"] and not org["is_branch"] and (search_text in org["name"].lower() or not search_text)]
+        filtered_college = [org for org in organizations if not org["is_branch"] and (search_text in org["name"].lower() or not search_text)]
 
         for org in filtered_joined:
             self._add_joined_org(org)
@@ -123,18 +118,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def load_branches(self, search_text: str = "") -> None:
         """Load and display branches, filtered by search text."""
-        _, _, joined_branches, college_branches = self._load_data()
+        organizations = self._load_data()
         self._clear_grid(self.ui.joined_org_grid)
         self._clear_grid(self.ui.college_org_grid)
         self.joined_org_count = 0
         self.college_org_count = 0
 
-        filtered_joined = [branch for branch in joined_branches if search_text in branch["name"].lower() or not search_text]
-        filtered_college = [branch for branch in college_branches if search_text in branch["name"].lower() or not search_text]
+        filtered_joined_branches = []
+        filtered_college_branches = []
 
-        for branch in filtered_joined:
+        for org in organizations:
+            for branch in org.get("branches", []):
+                if search_text in branch["name"].lower() or not search_text:
+                    if branch["is_joined"]:
+                        filtered_joined_branches.append(branch)
+                    filtered_college_branches.append(branch)
+
+        for branch in filtered_joined_branches:
             self._add_joined_org(branch)
-        for branch in filtered_college:
+        for branch in filtered_college_branches:
             self._add_college_org(branch)
 
         if self.joined_org_count == 0:
@@ -184,7 +186,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """Add a college organization card to the grid."""
         card = CollegeOrgCard(
             self._get_logo_path(org_data["logo_path"]), org_data["description"],
-            org_data["details"], org_data["apply"], org_data, self
+            org_data["details"], org_data, self
         )
         col = self.college_org_count % 5
         row = self.college_org_count // 5
@@ -234,7 +236,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if not self.current_org:
             return
         selected_semester = self.ui.officer_history_dp.itemText(index)
-        officers = self.current_org.get("officer_history", {}).get(selected_semester, [])
+        officers = self.current_org.get("officer_history", {}).get(selected_semester, []) if selected_semester != "Current Officers" else self.current_org.get("officers", [])
         self.load_officers(officers)
 
     def load_officers(self, officers: List[Dict]) -> None:
@@ -274,13 +276,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def show_org_details(self, org_data: Dict) -> None:
         """Display organization details on the details page."""
         self.current_org = org_data
-        self.ui.header_label_2.setText("Organization")
+        self.ui.header_label_2.setText("Organization" if not org_data["is_branch"] else "Branch")
         self.ui.status_btn.setText("Active")
         self.ui.org_name.setText(org_data["name"])
-        self.ui.org_type.setText("Organization Type")
+        self.ui.org_type.setText("Branch" if org_data["is_branch"] else "Organization")
         self.ui.brief_label.setText(org_data.get("brief", "No brief available"))
-        self.ui.obj_label.setText(org_data.get("objectives", "No objectives available"))
-        self.ui.obj_label_2.setText("\n".join(org_data.get("branches", [])) or "No branches available")
+        self.ui.obj_label.setText(org_data.get("description", "No description available"))
+        self.ui.obj_label_2.setText("\n".join([branch["name"] for branch in org_data.get("branches", [])]) or "No branches available")
         self.set_circular_logo(self.ui.logo, self._get_logo_path(org_data["logo_path"]))
         
         self.ui.officer_history_dp.clear()

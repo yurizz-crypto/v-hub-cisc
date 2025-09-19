@@ -136,3 +136,39 @@ class EditOfficerDialog(QtWidgets.QDialog):
         self.officer_data["start_date"] = self.date_edit.text()
         self.updated_data = self.officer_data
         self.accept()
+
+class EditMemberDialog(QtWidgets.QDialog):
+    def __init__(self, member_data: list, parent=None):
+        super().__init__(parent)
+        self.member_data = member_data
+        self.setWindowTitle("Edit Member Position")
+        self.setFixedSize(300, 200)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 10px;
+            }
+        """)
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.addWidget(QtWidgets.QLabel("Position:"))
+        self.position_edit = QtWidgets.QComboBox()
+        possible_positions = ["President", "Vice - Internal Chairperson", "Vice - External Chairperson", "Secretary", "Treasurer", "Member"]  # Add your possible positions here
+        self.position_edit.addItems(possible_positions)
+        self.position_edit.setCurrentText(member_data[1])
+        main_layout.addWidget(self.position_edit)
+
+        btn_layout = QtWidgets.QHBoxLayout()
+        confirm_btn = QtWidgets.QPushButton("Confirm")
+        confirm_btn.clicked.connect(self.confirm)
+        cancel_btn = QtWidgets.QPushButton("Cancel")
+        cancel_btn.clicked.connect(self.reject)
+        btn_layout.addWidget(confirm_btn)
+        btn_layout.addWidget(cancel_btn)
+        main_layout.addLayout(btn_layout)
+
+    def confirm(self):
+        self.updated_position = self.position_edit.currentText()
+        self.accept()

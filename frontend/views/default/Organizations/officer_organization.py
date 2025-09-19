@@ -1,5 +1,5 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 import sys
 import os
 import json
@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 from frontend.utils.orgs_custom_widgets.cards import JoinedOrgCard, EventCard, CollegeOrgCard, OfficerCard
 from frontend.utils.orgs_custom_widgets.dialogs import OfficerDialog
 from frontend.utils.orgs_custom_widgets.tables import ViewMembers
-from frontend.utils.orgs_custom_widgets.dialogs import EditOfficerDialog
+from frontend.utils.orgs_custom_widgets.dialogs import EditOfficerDialog, EditMemberDialog
 from frontend.ui.org_main_ui import Ui_MainWindow
 
 class EditOrgDialog(QtWidgets.QDialog):
@@ -92,6 +92,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.joined_org_count: int = 0
         self.college_org_count: int = 0
         self.officer_count: int = 0
+        self.manage_applicants_btn = None
+        self.is_managing: bool = False
         self.current_org: Optional[Dict] = None
         self.edit_btn: Optional[QtWidgets.QPushButton] = None
         self.table = self.findChild(QtWidgets.QTableView, "list_view")
@@ -144,14 +146,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 org["brief"] = self.current_org["brief"]
                 org["description"] = self.current_org["description"]
                 org["logo_path"] = self.current_org["logo_path"]
+                org["officers"] = self.current_org["officers"]
+                org["officer_history"] = self.current_org.get("officer_history", {})
+                org["members"] = self.current_org["members"]
                 break
         json_path = os.path.join(os.path.dirname(__file__), 'organizations_data.json')
         try:
             with open(json_path, 'w') as file:
                 json.dump({"organizations": organizations}, file, indent=4)
-            print("Data saved successfully.")
         except Exception as e:
-            print(f"Error saving data: {str(e)}")
+            print(f"Error saving {json_path}: {str(e)}")
 
     def _clear_grid(self, grid_layout: QtWidgets.QGridLayout) -> None:
         """Remove all widgets from the given grid layout."""
@@ -238,23 +242,60 @@ class MainWindow(QtWidgets.QMainWindow):
         self._update_scroll_areas()
 
     def load_members(self, search_text: str = "") -> None:
-        """Load and filter members into the table view."""
+        """Load members into the table view, filtered by search text."""
         if not self.current_org:
             return
 
-        members_data = self.current_org.get("members", [])
-        filtered_members = [
-            member for member in members_data
-            if any(search_text in str(field).lower() for field in member)
-        ] if search_text else members_data
+        members = self.current_org.get("members", [])
+        filtered_members = [mem for mem in members if search_text in mem[0].lower() or not search_text]
 
-        model = ViewMembers(filtered_members)
-        self.ui.list_view.setModel(model)
-        self.ui.list_view.horizontalHeader().setStretchLastSection(True)
-        self.ui.list_view.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+        model = ViewMembers(filtered_members, self.is_managing)
+        self.table.setModel(model)
+        self.table.horizontalHeader().setStretchLastSection(True)
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+        self.table.verticalHeader().hide()
 
-        self.ui.list_view.setVisible(bool(filtered_members))
-        self.no_member_label.setVisible(not filtered_members)
+        if self.is_managing:
+            for row in range(len(filtered_members)):
+                action_widget = QtWidgets.QWidget()
+                hlayout = QtWidgets.QHBoxLayout(action_widget)
+                hlayout.setContentsMargins(5, 5, 5, 5)
+                hlayout.setSpacing(5)
+
+                edit_btn = QtWidgets.QPushButton("Edit")
+                edit_btn.setStyleSheet("background-color: green; color: white; border-radius: 5px;")
+                edit_btn.clicked.connect(lambda checked, r=row: self.edit_member(r))
+
+                kick_btn = QtWidgets.QPushButton("Kick")
+                kick_btn.setStyleSheet("background-color: red; color: white; border-radius: 5px;")
+                kick_btn.clicked.connect(lambda checked, r=row: self.kick_member(r))
+
+                hlayout.addWidget(edit_btn)
+                hlayout.addWidget(kick_btn)
+
+                self.table.setIndexWidget(model.index(row, model.columnCount() - 1), action_widget)
+
+            # Add Manage Applicants button to header only if not already present
+            if not self.manage_applicants_btn:
+                self.ui.verticalLayout_16.removeWidget(self.ui.label_2)
+                self.ui.verticalLayout_16.removeWidget(self.ui.line_5)
+                header_hlayout = QtWidgets.QHBoxLayout()
+                self.ui.label_2.setText("Member List")
+                header_hlayout.addWidget(self.ui.label_2)
+                header_hlayout.addStretch()
+                self.manage_applicants_btn = QtWidgets.QPushButton("Manage Applicants")
+                self.manage_applicants_btn.setStyleSheet("background-color: #084924; color: white; border-radius: 5px;")
+                # Connect to a method if needed, e.g., self.manage_applicants_btn.clicked.connect(self.manage_applicants)
+                header_hlayout.addWidget(self.manage_applicants_btn)
+                self.ui.verticalLayout_16.addLayout(header_hlayout)
+                self.ui.verticalLayout_16.addWidget(self.ui.line_5)
+
+        if not filtered_members:
+            self.table.hide()
+            self.no_member_label.show()
+        else:
+            self.table.show()
+            self.no_member_label.hide()
 
     def _on_combobox_changed(self, index: int) -> None:
         """Handle combo box change to switch between organizations and branches."""
@@ -401,13 +442,17 @@ class MainWindow(QtWidgets.QMainWindow):
         # Officer check: Add edit button if user is an officer
         officers = org_data.get("officers", [])
         officer_names = [off.get("name", "") for off in officers]
-        if self.officer_name in officer_names:
+        self.is_managing = self.officer_name in officer_names
+        if self.is_managing:
+            self.ui.view_members_btn.setText("Manage Members")
             self.edit_btn = QtWidgets.QPushButton("Edit")
             self.edit_btn.setObjectName("edit_btn")
             self.edit_btn.clicked.connect(self.open_edit_dialog)
             # Insert after derscription_container (find index and insert)
             desc_index = self.ui.verticalLayout_10.indexOf(self.ui.derscription_container)
             self.ui.verticalLayout_10.insertWidget(desc_index + 1, self.edit_btn)
+        else:
+            self.ui.view_members_btn.setText("View Members")
 
         self.ui.stacked_widget.setCurrentIndex(1)
 
@@ -448,7 +493,35 @@ class MainWindow(QtWidgets.QMainWindow):
         officers = self.current_org.get("officer_history", {}).get(selected_semester, []) if selected_semester != "Current Officers" else self.current_org.get("officers", [])
         self.load_officers(officers)
 
+    def edit_member(self, row: int) -> None:
+        """Open dialog to edit member's position."""
+        if not self.current_org:
+            return
+        # Get filtered members based on current search text
+        search_text = self.ui.search_line_3.text().strip().lower()
+        members = self.current_org.get("members", [])
+        filtered_members = [mem for mem in members if search_text in mem[0].lower() or not search_text]
+        
+        if row >= len(filtered_members):
+            return
+        
+        # Map filtered member back to original member index
+        filtered_member = filtered_members[row]
+        original_index = next((i for i, mem in enumerate(members) if mem[0] == filtered_member[0]), None)
+        
+        if original_index is None:
+            return
+        
+        member = self.current_org["members"][original_index]
+        dialog = EditMemberDialog(member, self)
+        if dialog.exec() == QtWidgets.QDialog.DialogCode.Accepted:
+            new_position = dialog.updated_position
+            self.current_org["members"][original_index][1] = new_position
+            self.save_data()
+            self.load_members(self.ui.search_line_3.text().strip().lower())
+
 if __name__ == "__main__":
+
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()

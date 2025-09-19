@@ -5,7 +5,7 @@
             "name": "College of Information Sciences & Computing Student Council (CiSCo)",
             "is_joined": true,
             "is_branch": false,
-            "logo_path": "C:/Users/Yuri/Downloads/Resources/Sample Org.png",
+            "logo_path": "C:/Users/Yuri/Desktop/r v-hub/CISCT-Virual-Hub-main/frontend/assets/organization/sample_orgs/CiSCo Logo.jpg",
             "details": "View Details",
             "brief": "Hellow",
             "description": "Represent students and organize academic events.",
@@ -81,14 +81,8 @@
             ],
             "members": [
                 [
-                    "John Doe",
-                    "President",
-                    "Active",
-                    "2022-06-01"
-                ],
-                [
                     "Jane Smith",
-                    "Member",
+                    "President",
                     "Active",
                     "2022-06-01"
                 ],
@@ -116,7 +110,8 @@
                     "Active",
                     "2023-06-18"
                 ]
-            ]
+            ],
+            "officer_history": {}
         },
         {
             "id": 2,

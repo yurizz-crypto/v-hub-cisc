@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 
 from frontend.utils.orgs_custom_widgets.cards import JoinedOrgCard, EventCard, CollegeOrgCard, OfficerCard
 from frontend.utils.orgs_custom_widgets.dialogs import OfficerDialog
-from frontend.utils.orgs_custom_widgets.tables import ViewMembers
+from frontend.utils.orgs_custom_widgets.tables import ViewMembers, ViewApplicants
 from frontend.utils.orgs_custom_widgets.dialogs import EditMemberDialog
 from frontend.ui.org_main_ui import Ui_MainWindow
 
@@ -172,7 +172,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 org["officers"] = self.current_org["officers"]
                 org["officer_history"] = self.current_org.get("officer_history", {})
                 org["members"] = self.current_org["members"]
+                org["applicants"] = self.current_org.get("applicants", [])
                 break
+
         json_path = os.path.join(os.path.dirname(__file__), 'organizations_data.json')
         try:
             with open(json_path, 'w') as file:
@@ -317,7 +319,7 @@ class MainWindow(QtWidgets.QMainWindow):
             header_hlayout.addStretch()
             self.manage_applicants_btn = QtWidgets.QPushButton("Manage Applicants")
             self.manage_applicants_btn.setStyleSheet("background-color: #084924; color: white; border-radius: 5px;")
-            # Connect to a method if needed, e.g., self.manage_applicants_btn.clicked.connect(self.manage_applicants)
+            self.manage_applicants_btn.clicked.connect(self.manage_applicants)
             header_hlayout.addWidget(self.manage_applicants_btn)
             self.ui.verticalLayout_16.insertLayout(0, header_hlayout)
             self.ui.verticalLayout_16.addWidget(self.ui.line_5)
@@ -328,6 +330,80 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.table.show()
             self.no_member_label.hide()
+
+    def manage_applicants(self):
+        """Load applicants into the table view with action buttons."""
+        if not self.current_org:
+            return
+
+        applicants = self.current_org.get("applicants", [])
+
+        model = ViewApplicants(applicants)
+        self.table.setModel(model)
+        self.table.horizontalHeader().setStretchLastSection(True)
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+        self.table.verticalHeader().hide()
+
+        for row in range(len(applicants)):
+            action_widget = QtWidgets.QWidget()
+            hlayout = QtWidgets.QHBoxLayout(action_widget)
+            hlayout.setContentsMargins(5, 5, 5, 5)
+            hlayout.setSpacing(5)
+
+            details_btn = QtWidgets.QPushButton("Details")
+            details_btn.setStyleSheet("background-color: #FFD700; color: black; border-radius: 5px;")
+
+            accept_btn = QtWidgets.QPushButton("Accept")
+            accept_btn.setStyleSheet("background-color: green; color: white; border-radius: 5px;")
+            accept_btn.clicked.connect(lambda checked, r=row: self.accept_applicant(r))
+
+            decline_btn = QtWidgets.QPushButton("Decline")
+            decline_btn.setStyleSheet("background-color: red; color: white; border-radius: 5px;")
+            decline_btn.clicked.connect(lambda checked, r=row: self.decline_applicant(r))
+
+            hlayout.addWidget(details_btn)
+            hlayout.addWidget(accept_btn)
+            hlayout.addWidget(decline_btn)
+
+            self.table.setIndexWidget(model.index(row, model.columnCount() - 1), action_widget)
+
+        self.ui.label_2.setText("Applicant List")
+        self.ui.stacked_widget.setCurrentIndex(2)
+        self.no_member_label.setVisible(not applicants)
+
+    def accept_applicant(self, row: int):
+        """Confirm and move applicant to members list."""
+        applicant = self.current_org["applicants"][row]
+        confirm = QtWidgets.QMessageBox.question(
+            self,
+            "Confirm Accept",
+            f"Are you sure you want to accept {applicant[0]} as a member?",
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No
+        )
+        if confirm == QtWidgets.QMessageBox.StandardButton.Yes:
+            # Remove from applicants
+            self.current_org["applicants"].pop(row)
+            # Add to members with default status + join date
+            self.current_org["members"].append([
+                applicant[0], applicant[1], "Active",
+                QtCore.QDate.currentDate().toString("yyyy-MM-dd")
+            ])
+            self.save_data()
+            self.manage_applicants()
+
+    def decline_applicant(self, row: int):
+        """Confirm and remove applicant from list."""
+        applicant = self.current_org["applicants"][row]
+        confirm = QtWidgets.QMessageBox.question(
+            self,
+            "Confirm Decline",
+            f"Are you sure you want to decline {applicant[0]}'s application?",
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No
+        )
+        if confirm == QtWidgets.QMessageBox.StandardButton.Yes:
+            self.current_org["applicants"].pop(row)
+            self.save_data()
+            self.manage_applicants()
 
     def _on_combobox_changed(self, index: int) -> None:
         """Handle combo box change to switch between organizations and branches."""
@@ -496,7 +572,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def _return_to_prev_page(self) -> None:
         """Navigate back to the previous page."""
         if self.ui.stacked_widget.currentIndex() == 2:
-            self.ui.stacked_widget.setCurrentIndex(1)
+            # If currently viewing applicants, go back to members
+            if self.ui.label_2.text() == "Applicant List":
+                self.load_members()
+            else:
+                self.ui.stacked_widget.setCurrentIndex(1)
         else:
             self.load_orgs() if self.ui.comboBox.currentIndex() == 0 else self.load_branches()
             self.ui.stacked_widget.setCurrentIndex(0)

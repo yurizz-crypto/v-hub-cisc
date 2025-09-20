@@ -33,3 +33,35 @@ class ViewMembers(QAbstractTableModel):
         if self.is_managing and index.column() == len(self._headers) - 1:
             flags |= Qt.ItemFlag.ItemIsEditable
         return flags
+    
+class ViewApplicants(QAbstractTableModel):
+    def __init__(self, data):
+        super().__init__()
+        self._data = data
+        self._headers = ["No.", "Name", "Position", "Actions"]
+
+    def rowCount(self, parent=None):
+        return len(self._data)
+
+    def columnCount(self, parent=None):
+        return len(self._headers)
+
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole:
+            col = index.column()
+            if col == 0:
+                return str(index.row() + 1)  # Row numbering
+            elif col < len(self._headers) - 1:
+                return self._data[index.row()][col - 1]  # Name, Position
+        return None
+
+    def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Orientation.Horizontal:
+            return self._headers[section]
+        return None
+
+    def flags(self, index):
+        flags = super().flags(index)
+        if index.column() == len(self._headers) - 1:  # Actions column
+            flags |= Qt.ItemFlag.ItemIsEditable
+        return flags

@@ -21,7 +21,17 @@
                     "description": "Focus on IT-related projects and events.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Alex Brown",
+                            "Member"
+                        ],
+                        [
+                            "Sofia Davis",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 102,
@@ -34,7 +44,17 @@
                     "description": "Focus on computer science projects and events.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Liam Wilson",
+                            "Member"
+                        ],
+                        [
+                            "Emma Moore",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -103,6 +123,18 @@
                     "Member",
                     "Active",
                     "2023-06-18"
+                ],
+                [
+                    "John Doe",
+                    "Treasurer",
+                    "Active",
+                    "2025-09-20"
+                ]
+            ],
+            "applicants": [
+                [
+                    "Jane Smith",
+                    "Member"
                 ]
             ],
             "officer_history": {}
@@ -128,7 +160,17 @@
                     "description": "Build mechanical components of robots.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Oliver Green",
+                            "Member"
+                        ],
+                        [
+                            "Ava White",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 202,
@@ -141,7 +183,17 @@
                     "description": "Program robots for functionality.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Ethan Lee",
+                            "Member"
+                        ],
+                        [
+                            "Isabella Clark",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -151,7 +203,7 @@
                     "description": "Annual robotics challenge."
                 }
             ],
-            "officers": [                
+            "officers": [
                 {
                     "name": "Ruben, Stephen Joseph",
                     "position": "Vice - Internal Chairperson",
@@ -184,8 +236,21 @@
                     "Member",
                     "Active",
                     "2023-06-15"
+                ],
+                [
+                    "Lucas Taylor",
+                    "Member",
+                    "Active",
+                    "2025-09-20"
                 ]
-            ]
+            ],
+            "applicants": [
+                [
+                    "Sophia Martinez",
+                    "Member"
+                ]
+            ],
+            "officer_history": {}
         },
         {
             "id": 3,
@@ -208,7 +273,17 @@
                     "description": "Learn basic chess strategies.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Mason Adams",
+                            "Member"
+                        ],
+                        [
+                            "Charlotte Baker",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 302,
@@ -221,7 +296,17 @@
                     "description": "Compete in advanced chess tournaments.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Elijah Carter",
+                            "Member"
+                        ],
+                        [
+                            "Amelia Diaz",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -257,6 +342,16 @@
                     "Active",
                     "2024-06-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "James Edwards",
+                    "Member"
+                ],
+                [
+                    "Harper Flores",
+                    "Member"
+                ]
             ]
         },
         {
@@ -280,7 +375,17 @@
                     "description": "Train in policy debate techniques.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Logan Garcia",
+                            "Member"
+                        ],
+                        [
+                            "Mia Hernandez",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -316,6 +421,16 @@
                     "Active",
                     "2022-04-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "William Jackson",
+                    "Member"
+                ],
+                [
+                    "Evelyn Kim",
+                    "Member"
+                ]
             ]
         },
         {
@@ -339,7 +454,17 @@
                     "description": "Promote recycling practices.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Daniel Lee",
+                            "Member"
+                        ],
+                        [
+                            "Chloe Martinez",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 502,
@@ -352,7 +477,17 @@
                     "description": "Promote conservation practices.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Benjamin Nguyen",
+                            "Member"
+                        ],
+                        [
+                            "Lily Patel",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -388,6 +523,16 @@
                     "Active",
                     "2023-12-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "Michael Quinn",
+                    "Member"
+                ],
+                [
+                    "Aria Roberts",
+                    "Member"
+                ]
             ]
         },
         {
@@ -411,7 +556,17 @@
                     "description": "Learn web programming languages.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Henry Smith",
+                            "Member"
+                        ],
+                        [
+                            "Grace Taylor",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 602,
@@ -424,7 +579,17 @@
                     "description": "Learn mobile app programming.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Jack Wilson",
+                            "Member"
+                        ],
+                        [
+                            "Sophie Young",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -460,6 +625,16 @@
                     "Active",
                     "2024-12-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "Thomas Brown",
+                    "Member"
+                ],
+                [
+                    "Zoe Clark",
+                    "Member"
+                ]
             ]
         },
         {
@@ -483,7 +658,17 @@
                     "description": "Learn marketing techniques.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Lucas Davis",
+                            "Member"
+                        ],
+                        [
+                            "Ella Garcia",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -519,6 +704,16 @@
                     "Active",
                     "2023-02-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "David Hernandez",
+                    "Member"
+                ],
+                [
+                    "Olivia Lee",
+                    "Member"
+                ]
             ]
         },
         {
@@ -542,7 +737,17 @@
                     "description": "Learn directing techniques.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Noah Martinez",
+                            "Member"
+                        ],
+                        [
+                            "Ava Nguyen",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 802,
@@ -555,7 +760,17 @@
                     "description": "Learn film editing techniques.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Liam Patel",
+                            "Member"
+                        ],
+                        [
+                            "Emma Quinn",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -591,6 +806,16 @@
                     "Active",
                     "2023-10-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "Mason Roberts",
+                    "Member"
+                ],
+                [
+                    "Isabella Smith",
+                    "Member"
+                ]
             ]
         },
         {
@@ -614,7 +839,17 @@
                     "description": "Solve algebra-based challenges.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Ethan Taylor",
+                            "Member"
+                        ],
+                        [
+                            "Sophia Wilson",
+                            "Member"
+                        ]
+                    ]
                 },
                 {
                     "id": 902,
@@ -627,7 +862,17 @@
                     "description": "Solve geometry-based challenges.",
                     "events": [],
                     "officers": [],
-                    "members": []
+                    "members": [],
+                    "applicants": [
+                        [
+                            "Oliver Young",
+                            "Member"
+                        ],
+                        [
+                            "Charlotte Adams",
+                            "Member"
+                        ]
+                    ]
                 }
             ],
             "events": [
@@ -662,6 +907,16 @@
                     "Member",
                     "Active",
                     "2024-10-15"
+                ]
+            ],
+            "applicants": [
+                [
+                    "James Baker",
+                    "Member"
+                ],
+                [
+                    "Amelia Carter",
+                    "Member"
                 ]
             ]
         },
@@ -735,6 +990,16 @@
                     "Active",
                     "2022-10-15"
                 ]
+            ],
+            "applicants": [
+                [
+                    "Elijah Diaz",
+                    "Member"
+                ],
+                [
+                    "Harper Flores",
+                    "Member"
+                ]
             ]
         },
         {
@@ -779,6 +1044,16 @@
                     "Member",
                     "Active",
                     "2024-02-15"
+                ]
+            ],
+            "applicants": [
+                [
+                    "Logan Garcia",
+                    "Member"
+                ],
+                [
+                    "Mia Hernandez",
+                    "Member"
                 ]
             ]
         }
